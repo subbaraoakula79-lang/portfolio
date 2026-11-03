@@ -1,6 +1,6 @@
-import { motion, useInView, useMotionValue, useSpring } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import { useRef, useEffect, useState } from 'react';
-import { Eye, ArrowRight, MessageCircle } from 'lucide-react';
+import { ArrowRight, MessageCircle } from 'lucide-react';
 import MagneticButton from '../ui/MagneticButton';
 
 function useCounter(target, isInView, duration = 1.8) {
@@ -21,7 +21,12 @@ function useCounter(target, isInView, duration = 1.8) {
     return count;
 }
 
-const roles = ['Software Developer', 'Web Developer', 'Java & Python Developer', 'Problem Solver'];
+const roles = [
+    'Software Developer',
+    'Web Developer',
+    'Java & Python Developer',
+    'Problem Solver',
+];
 
 const Hero = () => {
     const ref = useRef(null);
@@ -31,29 +36,34 @@ const Hero = () => {
     const [roleIdx, setRoleIdx] = useState(0);
 
     useEffect(() => {
-        const t = setInterval(() => setRoleIdx(i => (i + 1) % roles.length), 2800);
-        return () => clearInterval(t);
+        const interval = setInterval(() => {
+            setRoleIdx(prev => (prev + 1) % roles.length);
+        }, 3000);
+        return () => clearInterval(interval);
     }, []);
 
     const headlineWords = ['I', 'build', 'things', 'that', 'matter.'];
     const wordVariants = {
-        hidden: { opacity: 0, y: 48, filter: 'blur(10px)' },
+        hidden: { opacity: 0, y: 44, filter: 'blur(10px)' },
         visible: (i) => ({
-            opacity: 1, y: 0, filter: 'blur(0px)',
-            transition: { delay: 0.3 + i * 0.13, duration: 0.65, ease: [0.25, 0.46, 0.45, 0.94] },
+            opacity: 1,
+            y: 0,
+            filter: 'blur(0px)',
+            transition: { delay: 0.28 + i * 0.12, duration: 0.7, ease: [0.16, 1, 0.3, 1] },
         }),
     };
     const fadeUp = {
-        hidden: { opacity: 0, y: 28 },
+        hidden: { opacity: 0, y: 26 },
         visible: (delay) => ({
-            opacity: 1, y: 0,
-            transition: { delay, duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] },
+            opacity: 1,
+            y: 0,
+            transition: { delay, duration: 0.7, ease: [0.16, 1, 0.3, 1] },
         }),
     };
 
     const stats = [
-        { value: '4', suffix: '+', label: 'Projects' },
-        { value: '7', suffix: '+', label: 'Skills' },
+        { value: '3', suffix: '+', label: 'Featured Projects' },
+        { value: '10', suffix: '+', label: 'Core Skills' },
         { value: '1', suffix: '', label: 'Championship' },
     ];
 
@@ -61,80 +71,87 @@ const Hero = () => {
         const count = useCounter(value, statsInView, 1.8);
         return (
             <div className="text-center">
-                <div className="text-3xl sm:text-4xl font-bold gradient-text shine-text">
+                <div className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight gradient-text shine-text">
                     {count}{suffix}
                 </div>
-                <div className="text-xs text-[var(--text-muted)] uppercase tracking-widest font-mono mt-1">{label}</div>
+                <div className="text-xs text-[var(--text-muted)] uppercase tracking-widest font-mono mt-1.5 font-medium">
+                    {label}
+                </div>
             </div>
         );
     };
 
     return (
-        <section id="home" ref={ref} className="relative min-h-screen flex items-center justify-center px-6 md:px-12 pt-28 pb-20">
-            {/* Ambient orbs */}
-            <div className="absolute top-1/4 left-1/4 w-80 h-80 rounded-full pointer-events-none"
-                style={{ background: 'radial-gradient(circle, rgba(99,102,241,0.09) 0%, transparent 70%)', filter: 'blur(40px)' }} />
-            <div className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full pointer-events-none"
-                style={{ background: 'radial-gradient(circle, rgba(139,92,246,0.07) 0%, transparent 70%)', filter: 'blur(50px)' }} />
+        <section id="home" ref={ref} className="relative min-h-screen flex items-center justify-center px-6 md:px-12 pt-32 pb-24 overflow-hidden">
+            {/* Apple-style subtle ambient glow orbs */}
+            <div
+                className="absolute top-1/4 left-1/3 -translate-x-1/2 w-[34rem] h-[34rem] rounded-full pointer-events-none opacity-40 dark:opacity-25 blur-3xl animate-ambient"
+                style={{ background: 'radial-gradient(circle, rgba(99, 102, 241, 0.25) 0%, rgba(139, 92, 246, 0.12) 45%, transparent 70%)' }}
+            />
+            <div
+                className="absolute bottom-1/4 right-1/4 w-[28rem] h-[28rem] rounded-full pointer-events-none opacity-30 dark:opacity-20 blur-3xl"
+                style={{ background: 'radial-gradient(circle, rgba(167, 139, 250, 0.2) 0%, transparent 70%)' }}
+            />
 
             <div className="max-w-4xl mx-auto text-center relative z-10">
-                {/* Profile badge */}
+                {/* Profile + Status Badge */}
                 <motion.div
-                    initial={{ opacity: 0, scale: 0.4, filter: 'blur(12px)' }}
+                    initial={{ opacity: 0, scale: 0.5, filter: 'blur(14px)' }}
                     animate={isInView ? { opacity: 1, scale: 1, filter: 'blur(0px)' } : {}}
-                    transition={{ delay: 0.1, duration: 0.85, type: 'spring', stiffness: 180, damping: 18 }}
-                    className="flex items-center justify-center gap-4 mb-12"
+                    transition={{ delay: 0.1, duration: 0.85, type: 'spring', stiffness: 190, damping: 20 }}
+                    className="flex items-center justify-center gap-4 mb-10"
                 >
-                    <div className="relative">
+                    <div className="relative group">
                         <motion.div
                             animate={{ rotate: 360 }}
-                            transition={{ duration: 9, repeat: Infinity, ease: 'linear' }}
-                            className="absolute -inset-[3px] rounded-full"
-                            style={{ background: 'conic-gradient(from 0deg, #6366f1, #8B5CF6, #a78bfa, #6366f1)', padding: '2px' }}
+                            transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
+                            className="absolute -inset-[3px] rounded-full opacity-80"
+                            style={{ background: 'conic-gradient(from 0deg, #6366f1, #8B5CF6, #c084fc, #6366f1)', padding: '2px' }}
                         />
                         <img
                             src="/profile.jpg"
                             alt="Sanjay Akula"
                             loading="eager"
-                            className="w-14 h-14 rounded-full object-cover relative z-10 ring-2 ring-[var(--bg-primary)]"
+                            className="w-14 h-14 rounded-full object-cover relative z-10 ring-2 ring-[var(--bg-primary)] shadow-md"
                         />
                         <motion.div
                             initial={{ scale: 0 }}
                             animate={isInView ? { scale: 1 } : {}}
                             transition={{ delay: 0.9, type: 'spring', stiffness: 500 }}
-                            className="absolute -bottom-0.5 -right-0.5 w-4 h-4 bg-emerald-500 rounded-full border-2 border-[var(--bg-primary)] animate-live z-20"
+                            className="absolute -bottom-0.5 -right-0.5 w-4 h-4 bg-emerald-500 rounded-full border-2 border-[var(--bg-primary)] animate-live z-20 shadow-sm"
+                            title="Available for opportunities"
                         />
                     </div>
                     <div className="text-left">
-                        <p className="text-sm font-semibold text-[var(--text-primary)]">Sanjay Akula</p>
+                        <p className="text-sm font-semibold text-[var(--text-primary)] tracking-tight">Sanjay Akula</p>
                         <p className="text-xs text-[var(--text-muted)] font-mono">Available for opportunities</p>
                     </div>
                 </motion.div>
 
-                {/* Animated role chip */}
+                {/* Animated Role Capsule */}
                 <motion.div
-                    custom={0.4}
+                    custom={0.35}
                     variants={fadeUp}
                     initial="hidden"
                     animate={isInView ? 'visible' : 'hidden'}
-                    className="flex justify-center mb-7"
+                    className="flex justify-center mb-6"
                 >
-                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[var(--border-color)] bg-[var(--glass-bg)] backdrop-blur-sm text-xs font-mono text-[var(--text-secondary)]">
+                    <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-[var(--border-color)] bg-[var(--glass-bg)] backdrop-blur-md shadow-sm text-xs font-mono text-[var(--text-secondary)]">
                         <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-live" />
                         <motion.span
                             key={roleIdx}
-                            initial={{ opacity: 0, y: 8 }}
+                            initial={{ opacity: 0, y: 7 }}
                             animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -8 }}
-                            transition={{ duration: 0.35 }}
+                            exit={{ opacity: 0, y: -7 }}
+                            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                         >
                             {roles[roleIdx]}
                         </motion.span>
                     </div>
                 </motion.div>
 
-                {/* Headline */}
-                <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-[1.05] mb-8 tracking-tight">
+                {/* Bold Headline */}
+                <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-[1.04] mb-8 tracking-tight">
                     {headlineWords.map((word, i) => (
                         <motion.span
                             key={i}
@@ -142,7 +159,7 @@ const Hero = () => {
                             variants={wordVariants}
                             initial="hidden"
                             animate={isInView ? 'visible' : 'hidden'}
-                            className={`inline-block mr-[0.28em] ${word === 'things' || word === 'matter.' ? 'gradient-text shine-text' : 'text-[var(--text-primary)]'}`}
+                            className={`inline-block mr-[0.25em] ${word === 'things' || word === 'matter.' ? 'gradient-text shine-text' : 'text-[var(--text-primary)]'}`}
                         >
                             {word}
                         </motion.span>
@@ -151,60 +168,49 @@ const Hero = () => {
 
                 {/* Sub-headline */}
                 <motion.p
-                    custom={1.2}
+                    custom={1.1}
                     variants={fadeUp}
                     initial="hidden"
                     animate={isInView ? 'visible' : 'hidden'}
-                    className="text-lg md:text-xl text-[var(--text-secondary)] max-w-2xl mx-auto mb-12 leading-relaxed"
+                    className="text-lg md:text-xl text-[var(--text-secondary)] max-w-2xl mx-auto mb-12 leading-relaxed font-normal"
                 >
                     Developer · Designer · Problem Solver.
                     <br className="hidden sm:block" />
-                    BSc IT student building focused, elegant, and impactful digital products.
+                    BSc IT student crafting focused, elegant, and impactful digital experiences.
                 </motion.p>
 
-                {/* CTA Buttons */}
+                {/* CTA Buttons (Resume Download completely removed per requirement 3) */}
                 <motion.div
-                    custom={1.5}
+                    custom={1.4}
                     variants={fadeUp}
                     initial="hidden"
                     animate={isInView ? 'visible' : 'hidden'}
                     className="flex flex-wrap items-center justify-center gap-4 mb-16"
                 >
                     <MagneticButton as="a" href="#projects" className="btn-primary group">
-                        View Projects
-                        <ArrowRight size={16} className="group-hover:translate-x-1.5 transition-transform" />
+                        <span>View Projects</span>
+                        <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform duration-300" />
                     </MagneticButton>
 
-                    <MagneticButton
-                        as="a"
-                        href="/resume.png"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="btn-secondary group"
-                    >
-                        <Eye size={16} className="group-hover:scale-110 transition-transform" />
-                        View Resume
-                    </MagneticButton>
-
-                    <MagneticButton as="a" href="#contact" className="btn-outline group">
-                        <MessageCircle size={16} className="group-hover:scale-110 transition-transform" />
-                        Contact Me
+                    <MagneticButton as="a" href="#contact" className="btn-secondary group">
+                        <MessageCircle size={16} className="group-hover:scale-110 transition-transform duration-300" />
+                        <span>Contact Me</span>
                     </MagneticButton>
                 </motion.div>
 
                 {/* Stats */}
                 <motion.div
                     ref={statsRef}
-                    custom={1.8}
+                    custom={1.7}
                     variants={fadeUp}
                     initial="hidden"
                     animate={isInView ? 'visible' : 'hidden'}
-                    className="flex items-center justify-center gap-10 sm:gap-20"
+                    className="flex items-center justify-center gap-8 sm:gap-16 pt-4"
                 >
                     {stats.map((stat, i) => (
                         <div key={stat.label} className="relative">
                             {i > 0 && (
-                                <div className="absolute -left-5 sm:-left-10 top-1/2 -translate-y-1/2 w-px h-8 bg-[var(--border-color)]" />
+                                <div className="absolute -left-4 sm:-left-8 top-1/2 -translate-y-1/2 w-px h-10 bg-[var(--border-color)]" />
                             )}
                             <StatCounter {...stat} />
                         </div>
@@ -212,19 +218,19 @@ const Hero = () => {
                 </motion.div>
             </div>
 
-            {/* Scroll indicator */}
+            {/* Scroll Indicator */}
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 2.8 }}
+                transition={{ delay: 2.6 }}
                 className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
             >
-                <span className="text-[10px] text-[var(--text-muted)] uppercase tracking-[0.2em] font-mono">Scroll</span>
+                <span className="text-[10px] text-[var(--text-muted)] uppercase tracking-[0.22em] font-mono font-medium">Scroll</span>
                 <motion.div
-                    animate={{ y: [0, 7, 0] }}
-                    transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+                    animate={{ y: [0, 6, 0] }}
+                    transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
                 >
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" strokeWidth="2" strokeLinecap="round">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" strokeWidth="2" strokeLinecap="round">
                         <path d="M7 13l5 5 5-5M7 6l5 5 5-5" />
                     </svg>
                 </motion.div>

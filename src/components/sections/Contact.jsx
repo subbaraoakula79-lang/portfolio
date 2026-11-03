@@ -5,8 +5,9 @@ import { Mail, Phone, Instagram, Linkedin, Send, CheckCircle, ArrowUpRight } fro
 const fadeUp = {
     hidden: { opacity: 0, y: 30 },
     visible: (delay = 0) => ({
-        opacity: 1, y: 0,
-        transition: { delay, duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
+        opacity: 1,
+        y: 0,
+        transition: { delay, duration: 0.65, ease: [0.16, 1, 0.3, 1] },
     }),
 };
 
@@ -25,7 +26,7 @@ const Contact = () => {
                 setIsSuccess(false);
                 setFormState({ name: '', email: '', message: '' });
             }, 3500);
-        }, 1500);
+        }, 1200);
     };
 
     const contactLinks = [
@@ -36,28 +37,40 @@ const Contact = () => {
     ];
 
     return (
-        <section id="contact" className="py-28 px-6 md:px-12 relative">
+        <section id="contact" className="py-32 px-6 md:px-12 relative">
             <div className="section-divider mb-28" />
             <div className="max-w-6xl mx-auto relative z-10">
 
-                {/* Headline */}
-                <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-100px' }} className="text-center mb-20">
-                    <span className="section-label justify-center">Contact</span>
-                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+                {/* Section Header */}
+                <motion.div
+                    variants={fadeUp}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, margin: '-100px' }}
+                    className="text-center mb-20"
+                >
+                    <span className="section-label justify-center">Get In Touch</span>
+                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight">
                         Let's build something{' '}
-                        <span className="gradient-text shine-text">great</span>
+                        <span className="gradient-text shine-text">exceptional</span>
                         <br className="hidden sm:block" />
                         {' '}together.
                     </h2>
-                    <p className="text-lg text-[var(--text-secondary)] max-w-xl mx-auto">
-                        Open to opportunities, collaborations, and new ideas.
-                        Let's turn your vision into reality.
+                    <p className="text-lg text-[var(--text-secondary)] max-w-xl mx-auto leading-relaxed">
+                        Open to engineering opportunities, collaborative ventures, and technical discussions.
                     </p>
                 </motion.div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-start max-w-5xl mx-auto">
-                    {/* Contact Links */}
-                    <motion.div variants={fadeUp} custom={0.1} initial="hidden" whileInView="visible" viewport={{ once: true }} className="space-y-4">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start max-w-5xl mx-auto">
+                    {/* Contact Links — 5 cols */}
+                    <motion.div
+                        variants={fadeUp}
+                        custom={0.1}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                        className="lg:col-span-5 space-y-4"
+                    >
                         {contactLinks.map((info, idx) => {
                             const Icon = info.icon;
                             return (
@@ -70,26 +83,25 @@ const Contact = () => {
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
                                     transition={{ delay: idx * 0.08 }}
-                                    whileHover={{ x: 4 }}
-                                    className="card p-5 rounded-2xl flex items-center gap-4 group"
+                                    className="apple-card p-5 rounded-2xl flex items-center gap-4 group"
                                 >
                                     <div
-                                        className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 border border-[var(--border-color)] transition-colors"
-                                        style={{ background: `${info.color}14`, color: info.color }}
+                                        className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 border border-[var(--border-color)] transition-colors shadow-sm"
+                                        style={{ background: `${info.color}15`, color: info.color }}
                                     >
-                                        <Icon size={18} />
+                                        <Icon size={20} />
                                     </div>
                                     <div className="min-w-0 flex-1">
                                         <p className="text-xs text-[var(--text-muted)] font-mono uppercase tracking-wider mb-0.5">{info.label}</p>
-                                        <p className="text-sm font-medium text-[var(--text-primary)] truncate">{info.value}</p>
+                                        <p className="text-sm font-semibold text-[var(--text-primary)] truncate">{info.value}</p>
                                     </div>
-                                    <ArrowUpRight size={14} className="text-[var(--text-muted)] group-hover:text-[var(--text-primary)] flex-shrink-0 opacity-0 group-hover:opacity-100 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                                    <ArrowUpRight size={15} className="text-[var(--text-muted)] group-hover:text-[var(--text-primary)] flex-shrink-0 opacity-0 group-hover:opacity-100 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                                 </motion.a>
                             );
                         })}
                     </motion.div>
 
-                    {/* Contact Form */}
+                    {/* Contact Form — 7 cols */}
                     <motion.form
                         onSubmit={handleSubmit}
                         variants={fadeUp}
@@ -97,51 +109,51 @@ const Contact = () => {
                         initial="hidden"
                         whileInView="visible"
                         viewport={{ once: true }}
-                        className="card rounded-2xl p-7 md:p-8"
+                        className="lg:col-span-7 apple-card rounded-3xl p-8 sm:p-10 shadow-lg"
                     >
                         <div className="space-y-5">
                             <div>
-                                <label className="block text-sm font-medium text-[var(--text-primary)] mb-2">Name</label>
+                                <label className="block text-xs font-mono uppercase tracking-wider text-[var(--text-muted)] mb-2 font-semibold">Your Name</label>
                                 <input
                                     type="text"
                                     required
                                     value={formState.name}
                                     onChange={e => setFormState({ ...formState, name: e.target.value })}
-                                    className="w-full bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-xl px-4 py-3 text-[var(--text-primary)] placeholder-[var(--text-muted)] text-sm"
-                                    placeholder="Your name"
+                                    className="w-full bg-[var(--glass-bg)] border border-[var(--border-color)] rounded-xl px-4 py-3.5 text-[var(--text-primary)] placeholder-[var(--text-muted)] text-sm shadow-sm"
+                                    placeholder="Enter your name"
                                 />
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-[var(--text-primary)] mb-2">Email</label>
+                                <label className="block text-xs font-mono uppercase tracking-wider text-[var(--text-muted)] mb-2 font-semibold">Email Address</label>
                                 <input
                                     type="email"
                                     required
                                     value={formState.email}
                                     onChange={e => setFormState({ ...formState, email: e.target.value })}
-                                    className="w-full bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-xl px-4 py-3 text-[var(--text-primary)] placeholder-[var(--text-muted)] text-sm"
-                                    placeholder="you@email.com"
+                                    className="w-full bg-[var(--glass-bg)] border border-[var(--border-color)] rounded-xl px-4 py-3.5 text-[var(--text-primary)] placeholder-[var(--text-muted)] text-sm shadow-sm"
+                                    placeholder="you@domain.com"
                                 />
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-[var(--text-primary)] mb-2">Message</label>
+                                <label className="block text-xs font-mono uppercase tracking-wider text-[var(--text-muted)] mb-2 font-semibold">Message</label>
                                 <textarea
                                     required
                                     rows={4}
                                     value={formState.message}
                                     onChange={e => setFormState({ ...formState, message: e.target.value })}
-                                    className="w-full bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-xl px-4 py-3 text-[var(--text-primary)] placeholder-[var(--text-muted)] resize-none text-sm"
-                                    placeholder="I'd love to collaborate on..."
+                                    className="w-full bg-[var(--glass-bg)] border border-[var(--border-color)] rounded-xl px-4 py-3.5 text-[var(--text-primary)] placeholder-[var(--text-muted)] resize-none text-sm shadow-sm"
+                                    placeholder="Tell me about your project or inquiry..."
                                 />
                             </div>
 
                             <button
                                 type="submit"
                                 disabled={isSubmitting || isSuccess}
-                                className="w-full py-3.5 rounded-xl font-semibold text-sm text-white transition-all duration-300 disabled:opacity-80 relative overflow-hidden"
-                                style={{ background: isSuccess ? 'linear-gradient(135deg, #22c55e, #16a34a)' : 'var(--gradient-btn)' }}
+                                className="w-full py-4 rounded-full font-semibold text-sm text-white transition-all duration-300 disabled:opacity-85 shadow-md relative overflow-hidden"
+                                style={{ background: isSuccess ? 'linear-gradient(135deg, #10b981, #059669)' : 'var(--gradient-btn)' }}
                             >
                                 <span className={`flex items-center justify-center gap-2 transition-all ${isSubmitting ? 'opacity-0' : 'opacity-100'}`}>
-                                    {isSuccess ? (<><CheckCircle size={16} /> Message sent!</>) : (<><Send size={14} /> Send Message</>)}
+                                    {isSuccess ? (<><CheckCircle size={16} /> Message Delivered!</>) : (<><Send size={15} /> Send Message</>)}
                                 </span>
                                 {isSubmitting && (
                                     <div className="absolute inset-0 flex items-center justify-center">

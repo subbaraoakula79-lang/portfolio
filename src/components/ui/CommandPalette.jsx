@@ -7,13 +7,12 @@ const CommandPalette = () => {
 
     const commands = [
         { label: 'Home', section: '#home', icon: '🏠' },
-        { label: 'About Me', section: '#about', icon: '👤' },
-        { label: 'Projects', section: '#projects', icon: '🚀' },
-        { label: 'Achievements', section: '#achievements', icon: '🏆' },
+        { label: 'About & Journey', section: '#about', icon: '👤' },
+        { label: 'Selected Work', section: '#projects', icon: '🚀' },
+        { label: 'Milestones', section: '#achievements', icon: '🏆' },
         { label: 'Contact', section: '#contact', icon: '✉️' },
-        { label: 'View Resume', action: 'resume', icon: '📄' },
-        { label: 'GitHub', action: 'https://github.com/subbaraoakula79-lang', icon: '💻', external: true },
-        { label: 'LinkedIn', action: 'https://www.linkedin.com/in/akula-sanjay-a6477b38a', icon: '🔗', external: true },
+        { label: 'GitHub Profile', action: 'https://github.com/subbaraoakula79-lang', icon: '💻', external: true },
+        { label: 'LinkedIn Profile', action: 'https://www.linkedin.com/in/akula-sanjay-a6477b38a', icon: '🔗', external: true },
     ];
 
     const filtered = commands.filter(c =>
@@ -26,10 +25,8 @@ const CommandPalette = () => {
 
         if (cmd.section) {
             document.querySelector(cmd.section)?.scrollIntoView({ behavior: 'smooth' });
-        } else if (cmd.action === 'resume') {
-            window.open('/resume.png', '_blank', 'noopener,noreferrer');
         } else if (cmd.external) {
-            window.open(cmd.action, '_blank');
+            window.open(cmd.action, '_blank', 'noopener,noreferrer');
         }
     }, []);
 
@@ -56,24 +53,24 @@ const CommandPalette = () => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    className="fixed inset-0 z-[200] flex items-start justify-center pt-[20vh]"
+                    className="fixed inset-0 z-[200] flex items-start justify-center pt-[18vh] px-4"
                 >
-                    {/* Backdrop */}
+                    {/* Apple-style backdrop */}
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+                        className="absolute inset-0 bg-black/55 backdrop-blur-md"
                         onClick={() => { setIsOpen(false); setSearch(''); }}
                     />
 
-                    {/* Palette */}
+                    {/* Palette modal */}
                     <motion.div
-                        initial={{ scale: 0.95, opacity: 0, y: -10 }}
+                        initial={{ scale: 0.95, opacity: 0, y: -12 }}
                         animate={{ scale: 1, opacity: 1, y: 0 }}
-                        exit={{ scale: 0.95, opacity: 0, y: -10 }}
-                        transition={{ duration: 0.15 }}
-                        className="relative w-full max-w-lg mx-4 rounded-2xl overflow-hidden border border-[var(--border-color)] shadow-2xl"
+                        exit={{ scale: 0.95, opacity: 0, y: -12 }}
+                        transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                        className="relative w-full max-w-lg rounded-3xl overflow-hidden border border-[var(--border-color)] shadow-2xl glass-panel"
                         style={{ background: 'var(--bg-primary)' }}
                     >
                         {/* Search Input */}
@@ -86,27 +83,27 @@ const CommandPalette = () => {
                                 autoFocus
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
-                                placeholder="Type a command or search..."
-                                className="flex-1 bg-transparent text-[var(--text-primary)] placeholder-[var(--text-muted)] outline-none text-sm"
+                                placeholder="Type a command or jump to section..."
+                                className="flex-1 bg-transparent text-[var(--text-primary)] placeholder-[var(--text-muted)] outline-none text-sm font-medium"
                             />
-                            <kbd className="hidden sm:inline-block text-[10px] font-mono px-1.5 py-0.5 rounded border border-[var(--border-color)] text-[var(--text-muted)]">ESC</kbd>
+                            <kbd className="hidden sm:inline-block text-[10px] font-mono px-2 py-0.5 rounded-md border border-[var(--border-color)] text-[var(--text-muted)] bg-[var(--glass-bg)]">ESC</kbd>
                         </div>
 
                         {/* Results */}
                         <div className="py-2 max-h-[300px] overflow-y-auto">
                             {filtered.length === 0 && (
-                                <p className="px-5 py-8 text-center text-[var(--text-muted)] text-sm">No results found.</p>
+                                <p className="px-5 py-8 text-center text-[var(--text-muted)] text-sm">No commands found.</p>
                             )}
                             {filtered.map((cmd, i) => (
                                 <button
                                     key={i}
                                     onClick={() => handleSelect(cmd)}
-                                    className="w-full flex items-center gap-3 px-5 py-3 text-left text-sm text-[var(--text-secondary)] hover:bg-[var(--gradient-subtle)] hover:text-[var(--text-primary)] transition-colors"
+                                    className="w-full flex items-center gap-3 px-5 py-3 text-left text-sm text-[var(--text-secondary)] hover:bg-[var(--glass-bg)] hover:text-[var(--text-primary)] transition-colors"
                                 >
                                     <span className="text-base">{cmd.icon}</span>
                                     <span className="font-medium">{cmd.label}</span>
                                     {cmd.external && (
-                                        <svg className="w-3 h-3 ml-auto text-[var(--text-muted)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                                        <svg className="w-3.5 h-3.5 ml-auto text-[var(--text-muted)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                                             <path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                                         </svg>
                                     )}
@@ -115,9 +112,12 @@ const CommandPalette = () => {
                         </div>
 
                         {/* Footer */}
-                        <div className="px-5 py-3 border-t border-[var(--border-color)] flex items-center gap-4 text-[10px] font-mono text-[var(--text-muted)]">
-                            <span>↑↓ Navigate</span>
-                            <span>↵ Select</span>
+                        <div className="px-5 py-3 border-t border-[var(--border-color)] flex items-center justify-between text-[11px] font-mono text-[var(--text-muted)] bg-[var(--glass-bg)]">
+                            <span className="flex items-center gap-2">
+                                <span>↑↓ Navigate</span>
+                                <span>•</span>
+                                <span>↵ Select</span>
+                            </span>
                             <span>esc Close</span>
                         </div>
                     </motion.div>
