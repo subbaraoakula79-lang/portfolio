@@ -21,7 +21,7 @@ function useCounter(target, isInView, duration = 1.8) {
     return count;
 }
 
-const roles = ['Frontend Developer', 'React Developer', 'UI/UX Enthusiast', 'AI Integrator'];
+const roles = ['Software Developer', 'Web Developer', 'Java & Python Developer', 'Problem Solver'];
 
 const Hero = () => {
     const ref = useRef(null);

@@ -13,13 +13,13 @@ const fadeUp = {
 const skillCategories = [
     {
         id: 'languages',
-        label: 'Languages',
+        label: 'Programming Languages',
         color: '#6366f1',
         skills: ['Java', 'Python', 'JavaScript'],
     },
     {
         id: 'web',
-        label: 'Web Tech',
+        label: 'Web Technologies',
         color: '#10B981',
         skills: ['HTML5', 'CSS3'],
     },
@@ -83,8 +83,8 @@ const About = () => {
                                 and creative vision.
                             </p>
                             <p className="text-[var(--text-secondary)] leading-relaxed">
-                                When I'm not coding, you'll find me exploring AI tools, competing in archery,
-                                or diving into the latest in web technology. I'm always looking for the
+                                When I'm not coding, you'll find me solving problems on LeetCode, competing in archery,
+                                or diving into the latest in web development. I'm always looking for the
                                 next challenge that pushes my boundaries.
                             </p>
                         </motion.div>
@@ -128,7 +128,7 @@ const About = () => {
                                         { emoji: '📍', text: 'Based in India' },
                                         { emoji: '🎓', text: 'BSc IT, 1st Year' },
                                         { emoji: '🏹', text: 'Competitive Archer' },
-                                        { emoji: '🤖', text: 'AI & Prompt Engineering' },
+                                        { emoji: '💡', text: 'Problem Solving' },
                                     ].map(({ emoji, text }) => (
                                         <div key={text} className="flex items-center gap-2">
                                             <span>{emoji}</span>

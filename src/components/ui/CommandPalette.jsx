@@ -11,8 +11,8 @@ const CommandPalette = () => {
         { label: 'Projects', section: '#projects', icon: '🚀' },
         { label: 'Achievements', section: '#achievements', icon: '🏆' },
         { label: 'Contact', section: '#contact', icon: '✉️' },
-        { label: 'Download Resume', action: 'resume', icon: '📄' },
-        { label: 'GitHub', action: 'https://github.com/', icon: '💻', external: true },
+        { label: 'View Resume', action: 'resume', icon: '📄' },
+        { label: 'GitHub', action: 'https://github.com/subbaraoakula79-lang', icon: '💻', external: true },
         { label: 'LinkedIn', action: 'https://www.linkedin.com/in/akula-sanjay-a6477b38a', icon: '🔗', external: true },
     ];
 
@@ -27,18 +27,7 @@ const CommandPalette = () => {
         if (cmd.section) {
             document.querySelector(cmd.section)?.scrollIntoView({ behavior: 'smooth' });
         } else if (cmd.action === 'resume') {
-            fetch('/resume.png')
-                .then(res => res.blob())
-                .then(blob => {
-                    const url = URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = 'Sanjay_Resume.png';
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                    URL.revokeObjectURL(url);
-                });
+            window.open('/resume.png', '_blank', 'noopener,noreferrer');
         } else if (cmd.external) {
             window.open(cmd.action, '_blank');
         }

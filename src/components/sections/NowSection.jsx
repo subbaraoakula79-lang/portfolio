@@ -11,15 +11,15 @@ const fadeUp = {
 const NowSection = () => {
     const nowItems = [
         {
-            title: "Learning the React Ecosystem",
-            description: "Deep-diving into React 19, Framer Motion, and modern state management patterns.",
+            title: "Data Structures & Algorithms",
+            description: "Solving algorithmic challenges on LeetCode and practicing problem solving with Java and Python.",
             status: "In Progress",
-            emoji: "⚛️",
+            emoji: "☕",
         },
         {
-            title: "Building This Portfolio",
-            description: "Crafting an immersive, cinematic portfolio experience with scroll-driven animations.",
-            status: "Live",
+            title: "Web & Database Engineering",
+            description: "Developing responsive web applications with robust Firebase & SQL integrations.",
+            status: "Active",
             emoji: "🚀",
         },
     ];
@@ -62,7 +62,7 @@ const NowSection = () => {
                                         {item.description}
                                     </p>
                                     <div className="flex items-center gap-2">
-                                        <div className={`w-2 h-2 rounded-full ${item.status === 'Live' ? 'bg-green-500 animate-live' : 'bg-amber-500 animate-live'}`} />
+                                        <div className={`w-2 h-2 rounded-full ${item.status === 'Active' || item.status === 'Live' ? 'bg-green-500 animate-live' : 'bg-amber-500 animate-live'}`} />
                                         <span className="text-xs font-mono text-[var(--text-muted)]">{item.status}</span>
                                     </div>
                                 </div>
