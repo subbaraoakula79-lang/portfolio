@@ -82,7 +82,7 @@ interactive-portfolio/
 ├── public/                       # Static public assets
 │   ├── goc.png                   # Grace of Christ platform screenshot
 │   ├── profile.jpg               # Professional headshot
-│   ├── resume.png                # High-resolution digital resume
+│   ├── new-resume.pdf            # Updated digital resume PDF
 │   └── vite.svg                  # Vite logo
 ├── src/
 │   ├── assets/                   # Bundled graphics

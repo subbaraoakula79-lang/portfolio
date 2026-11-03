@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { BookOpen, Code2, Terminal, Database, Wrench, Cpu, ChevronRight, Target, Award, Compass, Sparkles } from 'lucide-react';
+import { skillCategoriesData, educationData, aboutContentData } from '../../data/skillsData';
 
 const fadeUp = {
     hidden: { opacity: 0, y: 30 },
@@ -11,75 +12,23 @@ const fadeUp = {
     }),
 };
 
-const skillCategories = [
-    {
-        id: 'frontend',
-        label: 'Frontend Development',
-        icon: Code2,
-        color: '#6366f1',
-        skills: ['HTML5', 'CSS3', 'JavaScript', 'Responsive Web Design'],
-        description: 'Building clean, semantic, and fluid user interfaces with mobile-first fidelity.',
-    },
-    {
-        id: 'backend',
-        label: 'Backend Development',
-        icon: Terminal,
-        color: '#10B981',
-        skills: ['Java', 'Python', 'REST APIs', 'Debugging'],
-        description: 'Designing structured backend logic, application services, and reliable workflows.',
-    },
-    {
-        id: 'database',
-        label: 'Database',
-        icon: Database,
-        color: '#F59E0B',
-        skills: ['SQL', 'Firebase'],
-        description: 'Relational querying, schema design, and realtime cloud data persistence.',
-    },
-    {
-        id: 'tools',
-        label: 'Development Tools',
-        icon: Wrench,
-        color: '#8B5CF6',
-        skills: ['Git & GitHub', 'VS Code'],
-        description: 'Version control, collaborative workflows, and modern development tooling.',
-    },
-    {
-        id: 'core',
-        label: 'Core & Problem Solving',
-        icon: Cpu,
-        color: '#EC4899',
-        skills: ['Problem Solving', 'Data Structures', 'Algorithms', 'LeetCode'],
-        description: 'Algorithmic efficiency, methodical debugging, and competitive problem-solving.',
-    },
-];
+const iconMap = {
+    Code2,
+    Terminal,
+    Database,
+    Wrench,
+    Cpu,
+};
+
+const skillCategories = skillCategoriesData.map(category => ({
+    ...category,
+    icon: iconMap[category.iconName] || Code2,
+}));
 
 const About = () => {
     const [activeTab, setActiveTab] = useState('frontend');
 
-    const education = [
-        {
-            level: 'BSc Information Technology',
-            institution: 'PR Degree College, Adikavi Nannaya University',
-            period: '2025 – Present',
-            status: '1st Year Ongoing',
-            focus: 'Computer Science fundamentals, software programming, and database architectures.',
-        },
-        {
-            level: 'Intermediate (MPC)',
-            institution: 'State Board of Intermediate Education',
-            period: '2023 – 2025',
-            status: '75%',
-            focus: 'Mathematics, Physics, and Chemistry analytical foundations.',
-        },
-        {
-            level: '10th Standard Secondary Education',
-            institution: 'State Board of Secondary Education',
-            period: '2022 – 2023',
-            status: '79%',
-            focus: 'General sciences, mathematics, and computer literacy.',
-        },
-    ];
+    const education = educationData;
 
     const activeCategory = skillCategories.find(c => c.id === activeTab) || skillCategories[0];
 
@@ -96,9 +45,9 @@ const About = () => {
                     viewport={{ once: true, margin: '-100px' }}
                     className="mb-20"
                 >
-                    <span className="section-label">Editorial</span>
+                    <span className="section-label">{aboutContentData.sectionLabel}</span>
                     <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight">
-                        About &amp; <span className="gradient-text shine-text">Capabilities</span>
+                        {aboutContentData.headingPrefix} <span className="gradient-text shine-text">{aboutContentData.headingHighlight}</span>
                     </h2>
                     <p className="text-[var(--text-secondary)] max-w-xl text-lg leading-relaxed">
                         An overview of my developer journey, technical philosophy, and disciplined foundations.
@@ -121,15 +70,11 @@ const About = () => {
                                 <Sparkles size={14} />
                                 <span>The Journey</span>
                             </div>
-                            <h3 className="text-2xl sm:text-3xl font-bold text-[var(--text-primary)] tracking-tight">
-                                Crafting thoughtful digital products with rigor and aesthetic balance.
-                            </h3>
-                            <p className="text-base text-[var(--text-secondary)] leading-relaxed">
-                                I'm <strong className="text-[var(--text-primary)] font-semibold">Sanjay Akula</strong>, an Information Technology scholar pursuing my BSc IT at PR Degree College (Adikavi Nannaya University). My journey began with an insatiable curiosity about how software shapes modern life, and that drive has evolved into building reliable, clean, and intuitive web systems.
-                            </p>
-                            <p className="text-base text-[var(--text-secondary)] leading-relaxed">
-                                Whether writing structured <strong className="text-[var(--text-primary)] font-medium">Java and Python</strong> logic or implementing pixel-accurate frontend interfaces, my philosophy mirrors Apple's design ethos: <em className="text-[var(--text-primary)]">elegance lies in simplicity, clarity, and uncompromising execution</em>.
-                            </p>
+                            {aboutContentData.paragraphs.map((paragraph, idx) => (
+                                <p key={idx} className="text-base text-[var(--text-secondary)] leading-relaxed">
+                                    {paragraph}
+                                </p>
+                            ))}
                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-[var(--border-color)]">
                                 <div>
                                     <span className="text-[11px] font-mono uppercase tracking-wider text-[var(--text-muted)]">Core Focus</span>

@@ -1,7 +1,8 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef, useEffect, useState } from 'react';
-import { ArrowRight, MessageCircle } from 'lucide-react';
+import { ArrowRight, FileText } from 'lucide-react';
 import MagneticButton from '../ui/MagneticButton';
+import { heroStatsData } from '../../data/skillsData';
 
 function useCounter(target, isInView, duration = 1.8) {
     const [count, setCount] = useState(0);
@@ -21,26 +22,11 @@ function useCounter(target, isInView, duration = 1.8) {
     return count;
 }
 
-const roles = [
-    'Software Developer',
-    'Web Developer',
-    'Java & Python Developer',
-    'Problem Solver',
-];
-
 const Hero = () => {
     const ref = useRef(null);
     const isInView = useInView(ref, { once: true, margin: '-100px' });
     const statsRef = useRef(null);
     const statsInView = useInView(statsRef, { once: true, margin: '-50px' });
-    const [roleIdx, setRoleIdx] = useState(0);
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setRoleIdx(prev => (prev + 1) % roles.length);
-        }, 3000);
-        return () => clearInterval(interval);
-    }, []);
 
     const headlineWords = ['I', 'build', 'things', 'that', 'matter.'];
     const wordVariants = {
@@ -61,11 +47,7 @@ const Hero = () => {
         }),
     };
 
-    const stats = [
-        { value: '3', suffix: '+', label: 'Featured Projects' },
-        { value: '10', suffix: '+', label: 'Core Skills' },
-        { value: '1', suffix: '', label: 'Championship' },
-    ];
+    const stats = heroStatsData;
 
     const StatCounter = ({ value, suffix, label }) => {
         const count = useCounter(value, statsInView, 1.8);
@@ -99,7 +81,7 @@ const Hero = () => {
                     initial={{ opacity: 0, scale: 0.5, filter: 'blur(14px)' }}
                     animate={isInView ? { opacity: 1, scale: 1, filter: 'blur(0px)' } : {}}
                     transition={{ delay: 0.1, duration: 0.85, type: 'spring', stiffness: 190, damping: 20 }}
-                    className="flex items-center justify-center gap-4 mb-10"
+                    className="flex items-center justify-center gap-4 mb-8"
                 >
                     <div className="relative group">
                         <motion.div
@@ -125,28 +107,6 @@ const Hero = () => {
                     <div className="text-left">
                         <p className="text-sm font-semibold text-[var(--text-primary)] tracking-tight">Sanjay Akula</p>
                         <p className="text-xs text-[var(--text-muted)] font-mono">Available for opportunities</p>
-                    </div>
-                </motion.div>
-
-                {/* Animated Role Capsule */}
-                <motion.div
-                    custom={0.35}
-                    variants={fadeUp}
-                    initial="hidden"
-                    animate={isInView ? 'visible' : 'hidden'}
-                    className="flex justify-center mb-6"
-                >
-                    <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-[var(--border-color)] bg-[var(--glass-bg)] backdrop-blur-md shadow-sm text-xs font-mono text-[var(--text-secondary)]">
-                        <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-live" />
-                        <motion.span
-                            key={roleIdx}
-                            initial={{ opacity: 0, y: 7 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -7 }}
-                            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                        >
-                            {roles[roleIdx]}
-                        </motion.span>
                     </div>
                 </motion.div>
 
@@ -179,22 +139,32 @@ const Hero = () => {
                     BSc IT student crafting focused, elegant, and impactful digital experiences.
                 </motion.p>
 
-                {/* CTA Buttons (Resume Download completely removed per requirement 3) */}
+                {/* CTA Buttons */}
                 <motion.div
                     custom={1.4}
                     variants={fadeUp}
                     initial="hidden"
                     animate={isInView ? 'visible' : 'hidden'}
-                    className="flex flex-wrap items-center justify-center gap-4 mb-16"
+                    className="flex flex-row flex-wrap items-center justify-center gap-3 sm:gap-4 mb-16 max-w-full"
                 >
-                    <MagneticButton as="a" href="#projects" className="btn-primary group">
+                    <MagneticButton
+                        as="a"
+                        href="#projects"
+                        className="btn-primary group h-12 px-5 sm:px-7 whitespace-nowrap justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6366f1] focus-visible:ring-offset-2 active:scale-95"
+                    >
                         <span>View Projects</span>
-                        <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform duration-300" />
+                        <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform duration-300 flex-shrink-0" />
                     </MagneticButton>
 
-                    <MagneticButton as="a" href="#contact" className="btn-secondary group">
-                        <MessageCircle size={16} className="group-hover:scale-110 transition-transform duration-300" />
-                        <span>Contact Me</span>
+                    <MagneticButton
+                        as="a"
+                        href="/new-resume.pdf"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn-secondary group h-12 px-5 sm:px-7 whitespace-nowrap justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6366f1] focus-visible:ring-offset-2 active:scale-95"
+                    >
+                        <FileText size={16} className="group-hover:scale-110 transition-transform duration-300 flex-shrink-0" />
+                        <span>View Resume</span>
                     </MagneticButton>
                 </motion.div>
 
