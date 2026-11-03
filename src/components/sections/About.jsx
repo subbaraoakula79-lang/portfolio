@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { BookOpen, Code2, Terminal, Database, Wrench, Cpu, ChevronRight, Target, Award, Compass, Sparkles } from 'lucide-react';
+import { BookOpen, Code2, Terminal, Database, Wrench, Cpu, ChevronRight, Sparkles } from 'lucide-react';
 import { skillCategoriesData, educationData, aboutContentData } from '../../data/skillsData';
 
 const fadeUp = {
@@ -214,31 +214,6 @@ const About = () => {
                                     </div>
                                 </motion.div>
                             </AnimatePresence>
-
-                            {/* Quick Core Strengths */}
-                            <div className="mt-8 pt-6 border-t border-[var(--border-color)] space-y-3">
-                                <span className="text-[11px] font-mono uppercase tracking-wider text-[var(--text-muted)] font-semibold block mb-2">
-                                    Engineering Pillars
-                                </span>
-                                {[
-                                    { icon: Target, title: 'Precision & Focus', desc: 'Sharpened through competitive university archery' },
-                                    { icon: Compass, title: 'Analytical Rigor', desc: 'Methodical problem decomposition on LeetCode' },
-                                    { icon: Award, title: 'Modern Aesthetics', desc: 'Apple-inspired glassmorphism & fluid animations' },
-                                ].map((item, i) => {
-                                    const Icon = item.icon;
-                                    return (
-                                        <div key={i} className="flex items-start gap-3 p-3 rounded-xl hover:bg-[var(--glass-bg)] transition-colors">
-                                            <div className="w-8 h-8 rounded-lg bg-[var(--gradient-subtle)] flex items-center justify-center text-[#6366f1] flex-shrink-0 border border-[var(--border-color)] mt-0.5">
-                                                <Icon size={15} />
-                                            </div>
-                                            <div>
-                                                <h5 className="text-xs font-bold text-[var(--text-primary)]">{item.title}</h5>
-                                                <p className="text-[11px] text-[var(--text-muted)] mt-0.5 leading-snug">{item.desc}</p>
-                                            </div>
-                                        </div>
-                                    );
-                                })}
-                            </div>
                         </motion.div>
                     </div>
                 </div>
