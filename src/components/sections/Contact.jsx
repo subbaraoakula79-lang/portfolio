@@ -29,25 +29,19 @@ const Contact = () => {
     };
 
     const contactLinks = [
-        { icon: Mail, label: "Email", value: "akulasanjay84@gmail.com", href: "mailto:akulasanjay84@gmail.com" },
-        { icon: Phone, label: "Phone", value: "+91 8639064377", href: "tel:8639064377" },
-        { icon: Instagram, label: "Instagram", value: "@sanjay._0084", href: "https://instagram.com/sanjay._0084" },
-        { icon: Linkedin, label: "LinkedIn", value: "Akula Sanjay", href: "https://www.linkedin.com/in/akula-sanjay-a6477b38a" },
+        { icon: Mail, label: 'Email', value: 'akulasanjay84@gmail.com', href: 'mailto:akulasanjay84@gmail.com', color: '#6366f1' },
+        { icon: Phone, label: 'Phone', value: '+91 8639064377', href: 'tel:8639064377', color: '#10B981' },
+        { icon: Instagram, label: 'Instagram', value: '@sanjay._0084', href: 'https://instagram.com/sanjay._0084', color: '#EC4899' },
+        { icon: Linkedin, label: 'LinkedIn', value: 'Akula Sanjay', href: 'https://www.linkedin.com/in/akula-sanjay-a6477b38a', color: '#3B82F6' },
     ];
 
     return (
         <section id="contact" className="py-28 px-6 md:px-12 relative">
             <div className="section-divider mb-28" />
-
             <div className="max-w-6xl mx-auto relative z-10">
-                {/* Big Headline */}
-                <motion.div
-                    variants={fadeUp}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, margin: "-100px" }}
-                    className="text-center mb-20"
-                >
+
+                {/* Headline */}
+                <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-100px' }} className="text-center mb-20">
                     <span className="section-label justify-center">Contact</span>
                     <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
                         Let's build something{' '}
@@ -63,14 +57,7 @@ const Contact = () => {
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-start max-w-5xl mx-auto">
                     {/* Contact Links */}
-                    <motion.div
-                        variants={fadeUp}
-                        custom={0.1}
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true }}
-                        className="space-y-4"
-                    >
+                    <motion.div variants={fadeUp} custom={0.1} initial="hidden" whileInView="visible" viewport={{ once: true }} className="space-y-4">
                         {contactLinks.map((info, idx) => {
                             const Icon = info.icon;
                             return (
@@ -79,20 +66,24 @@ const Contact = () => {
                                     href={info.href}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    initial={{ opacity: 0, y: 15 }}
+                                    initial={{ opacity: 0, y: 16 }}
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
                                     transition={{ delay: idx * 0.08 }}
+                                    whileHover={{ x: 4 }}
                                     className="card p-5 rounded-2xl flex items-center gap-4 group"
                                 >
-                                    <div className="w-11 h-11 rounded-xl bg-[var(--gradient-subtle)] flex items-center justify-center text-[var(--text-secondary)] flex-shrink-0 border border-[var(--border-color)] group-hover:text-primary transition-colors">
+                                    <div
+                                        className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 border border-[var(--border-color)] transition-colors"
+                                        style={{ background: `${info.color}14`, color: info.color }}
+                                    >
                                         <Icon size={18} />
                                     </div>
                                     <div className="min-w-0 flex-1">
                                         <p className="text-xs text-[var(--text-muted)] font-mono uppercase tracking-wider mb-0.5">{info.label}</p>
                                         <p className="text-sm font-medium text-[var(--text-primary)] truncate">{info.value}</p>
                                     </div>
-                                    <ArrowUpRight size={14} className="text-[var(--text-muted)] group-hover:text-primary flex-shrink-0 opacity-0 group-hover:opacity-100 transition-all" />
+                                    <ArrowUpRight size={14} className="text-[var(--text-muted)] group-hover:text-[var(--text-primary)] flex-shrink-0 opacity-0 group-hover:opacity-100 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                                 </motion.a>
                             );
                         })}
@@ -110,9 +101,7 @@ const Contact = () => {
                     >
                         <div className="space-y-5">
                             <div>
-                                <label className="block text-sm font-medium text-[var(--text-primary)] mb-2">
-                                    Name
-                                </label>
+                                <label className="block text-sm font-medium text-[var(--text-primary)] mb-2">Name</label>
                                 <input
                                     type="text"
                                     required
@@ -123,9 +112,7 @@ const Contact = () => {
                                 />
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-[var(--text-primary)] mb-2">
-                                    Email
-                                </label>
+                                <label className="block text-sm font-medium text-[var(--text-primary)] mb-2">Email</label>
                                 <input
                                     type="email"
                                     required
@@ -136,9 +123,7 @@ const Contact = () => {
                                 />
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-[var(--text-primary)] mb-2">
-                                    Message
-                                </label>
+                                <label className="block text-sm font-medium text-[var(--text-primary)] mb-2">Message</label>
                                 <textarea
                                     required
                                     rows={4}
@@ -153,18 +138,10 @@ const Contact = () => {
                                 type="submit"
                                 disabled={isSubmitting || isSuccess}
                                 className="w-full py-3.5 rounded-xl font-semibold text-sm text-white transition-all duration-300 disabled:opacity-80 relative overflow-hidden"
-                                style={{
-                                    background: isSuccess
-                                        ? 'linear-gradient(135deg, #22c55e, #16a34a)'
-                                        : 'var(--gradient-btn)',
-                                }}
+                                style={{ background: isSuccess ? 'linear-gradient(135deg, #22c55e, #16a34a)' : 'var(--gradient-btn)' }}
                             >
                                 <span className={`flex items-center justify-center gap-2 transition-all ${isSubmitting ? 'opacity-0' : 'opacity-100'}`}>
-                                    {isSuccess ? (
-                                        <><CheckCircle size={16} /> Message sent!</>
-                                    ) : (
-                                        <><Send size={14} /> Send Message</>
-                                    )}
+                                    {isSuccess ? (<><CheckCircle size={16} /> Message sent!</>) : (<><Send size={14} /> Send Message</>)}
                                 </span>
                                 {isSubmitting && (
                                     <div className="absolute inset-0 flex items-center justify-center">
