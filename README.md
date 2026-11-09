@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![Portfolio Banner](public/og-image.svg)
+![Portfolio Live Preview](public/hero-preview.jpg)
 
 [![React](https://img.shields.io/badge/React-19.2.0-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
 [![Vite](https://img.shields.io/badge/Vite-7.3.1-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
@@ -74,6 +74,7 @@
 interactive-portfolio/
 ├── public/                       # Static public assets served at root
 │   ├── favicon.svg               # Custom 'S' brand monogram vector icon
+│   ├── hero-preview.jpg          # Live portfolio interface preview screenshot
 │   ├── goc.png                   # Grace of Christ platform production screenshot
 │   ├── nap-thumb.jpg             # National Admission Portal main thumbnail
 │   ├── nap/                      # High-resolution demo screenshots (5 views)
@@ -92,10 +93,10 @@ interactive-portfolio/
 │   │   ├── sections/
 │   │   │   ├── Hero.jsx          # Staggered headline reveal, live status badge, metrics
 │   │   │   ├── About.jsx         # Narrative, education timeline & categorized skills
-│   │   │   ├── Projects.jsx      # 3D interactive cards, category filters, multi-image modal
+│   │   │   ├── Projects.jsx      # 3D interactive cards, variable-aspect multi-image modal
 │   │   │   ├── Achievement.jsx   # Inter-University Archery Bronze medal showcase
 │   │   │   ├── NowSection.jsx    # Real-time focus cards with DSA & full-stack topic tags
-│   │   │   └── Contact.jsx       # Contact form, 1-click clipboard copy, verified links
+│   │   │   └── Contact.jsx       # Contact form, airplane takeoff animation, 1-click copy
 │   │   └── ui/
 │   │       ├── BackgroundEffect.jsx # Ambient gradient canvas & subtle dot matrix
 │   │       ├── CommandPalette.jsx   # Global keyboard navigation modal (⌘K / Ctrl+K)
