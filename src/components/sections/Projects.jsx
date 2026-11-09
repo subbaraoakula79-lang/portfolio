@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence, useMotionValue, useTransform, useSpring } from 'framer-motion';
-import { ExternalLink, Github, X, Globe, GraduationCap, ArrowUpRight, Sparkles } from 'lucide-react';
+import { ExternalLink, Github, X, Globe, GraduationCap, ArrowUpRight, Sparkles, ChevronLeft, ChevronRight, Layers } from 'lucide-react';
 
 const fadeUp = {
     hidden: { opacity: 0, y: 32 },
@@ -43,6 +43,8 @@ const TiltCard = ({ children, className = '', onClick }) => {
 
 const Projects = () => {
     const [selectedProject, setSelectedProject] = useState(null);
+    const [activeImageIndex, setActiveImageIndex] = useState(0);
+    const [activeFilter, setActiveFilter] = useState('All');
 
     const projects = [
         {
@@ -65,6 +67,13 @@ const Projects = () => {
                 "Mobile-first responsive design & smooth navigation",
                 "Online offering & community interaction",
             ],
+            gallery: [
+                {
+                    src: "/goc.png",
+                    title: "Live Church Gateway",
+                    desc: "Responsive community portal featuring prayer timings, event calendar, and sermon archives."
+                }
+            ],
             link: "https://grace-of-christ-agy.vercel.app/",
             github: "https://github.com/subbaraoakula79-lang",
         },
@@ -73,24 +82,62 @@ const Projects = () => {
             title: "National Admission Portal",
             subtitle: "Centralized student admission system",
             problem: "Students faced fragmented and cumbersome admission workflows across diverse academic institutions.",
-            solution: "Architected a unified digital admission portal featuring automated document management, student verification, and real-time application tracking.",
-            impact: "Streamlined applicant onboarding and administrative record management with reliable database integrity.",
+            solution: "Architected a unified digital admission portal featuring automated document management, student verification, DigiLocker integration, and multi-round seat allotment.",
+            impact: "Streamlined applicant onboarding and administrative record management with reliable database integrity and real-time review consoles.",
             tech: ["Python", "SQL", "HTML5", "CSS3", "JavaScript"],
             category: "Full Stack System",
             icon: GraduationCap,
-            image: null,
+            image: "/nap-thumb.jpg",
             featured: false,
             accentColor: "#6366f1",
             features: [
-                "Centralized multi-institution application system",
-                "Real-time status tracking & applicant verification",
-                "Secure document repository & credential validation",
-                "Dedicated administrative review console",
+                "DigiLocker Integration — auto-fetches SSC, Intermediate & UG certificates directly",
+                "AI Counselor — multilingual guidance supporting English, Telugu, Hindi, and Tenglish",
+                "Fair Reservation System — transparent merit & category-based seat allocation",
+                "Multi-Round Allotment — 3-round selection (Accept, Freeze, or Upgrade preferences)",
+                "Dedicated Admin Dashboard — analytics, college rosters, course quotas, and audit logs",
+            ],
+            gallery: [
+                {
+                    src: "/nap/nap-hero.jpg",
+                    title: "Landing Hero — 'Your Future Starts with Smart Admissions'",
+                    desc: "Statewide admission gateway for UG & PG courses with zero application fees and AI guidance."
+                },
+                {
+                    src: "/nap/nap-features.jpg",
+                    title: "Core Platform Capabilities",
+                    desc: "DigiLocker integration, AI chatbot counselor, fair reservations, and multi-round allotments."
+                },
+                {
+                    src: "/nap/nap-admissions.jpg",
+                    title: "Admission Types & Pathways",
+                    desc: "Dedicated application pathways for Undergraduate, Postgraduate, Engineering, and Polytechnic Diploma."
+                },
+                {
+                    src: "/nap/nap-admin.jpg",
+                    title: "Administrative Control Center",
+                    desc: "System analytics: student applicant metrics, college seats, payments, and system audit logs."
+                },
+                {
+                    src: "/nap/nap-ai-counselor.jpg",
+                    title: "Multilingual AI Counselor",
+                    desc: "Instant conversational admission assistance in English, Telugu, Hindi, and Tenglish."
+                }
             ],
             link: "https://github.com/subbaraoakula79-lang",
             github: "https://github.com/subbaraoakula79-lang",
         },
     ];
+
+    const categories = ['All', 'Featured Full Stack', 'Full Stack System'];
+    const filteredProjects = activeFilter === 'All'
+        ? projects
+        : projects.filter(p => p.category === activeFilter);
+
+    const openModal = (project) => {
+        setSelectedProject(project);
+        setActiveImageIndex(0);
+    };
 
     return (
         <section id="projects" className="py-32 px-6 md:px-12 relative">
@@ -103,69 +150,81 @@ const Projects = () => {
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true, margin: '-100px' }}
-                    className="mb-20"
+                    className="mb-14 flex flex-col md:flex-row md:items-end justify-between gap-6"
                 >
-                    <span className="section-label">Selected Work</span>
-                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight">
-                        Crafted with <span className="gradient-text shine-text">precision</span>
-                    </h2>
-                    <p className="text-[var(--text-secondary)] max-w-xl text-lg leading-relaxed">
-                        A curation of production-ready digital products, from design system to robust deployment.
-                    </p>
+                    <div>
+                        <span className="section-label">Selected Work</span>
+                        <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 tracking-tight">
+                            Crafted with <span className="gradient-text shine-text">precision</span>
+                        </h2>
+                        <p className="text-[var(--text-secondary)] max-w-xl text-lg leading-relaxed">
+                            A curation of production-ready digital products, from design system to robust deployment.
+                        </p>
+                    </div>
+
+                    {/* Filter Pills */}
+                    <div className="flex flex-wrap items-center gap-2 p-1.5 rounded-full border border-[var(--border-color)] bg-[var(--glass-bg)] self-start md:self-end">
+                        {categories.map((cat) => (
+                            <button
+                                key={cat}
+                                onClick={() => setActiveFilter(cat)}
+                                className={`px-4 py-1.5 rounded-full text-xs font-medium transition-all ${
+                                    activeFilter === cat
+                                        ? 'bg-[#6366f1] text-white shadow-sm'
+                                        : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--border-color)]/30'
+                                }`}
+                            >
+                                {cat}
+                            </button>
+                        ))}
+                    </div>
                 </motion.div>
 
                 {/* Projects Presentation */}
                 <div className="space-y-12">
-                    {projects.map((project, idx) => {
-                        const Icon = project.icon;
+                    {filteredProjects.map((project, idx) => {
                         const isFeatured = project.featured;
 
                         return (
                             <motion.div
                                 key={project.id}
+                                layout
                                 initial={{ opacity: 0, y: 40 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true, margin: '-60px' }}
-                                transition={{ delay: idx * 0.15, duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: 20 }}
+                                transition={{ delay: idx * 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                             >
                                 <TiltCard
-                                    onClick={() => setSelectedProject(project)}
+                                    onClick={() => openModal(project)}
                                     className="apple-card rounded-3xl p-6 sm:p-8 md:p-10 cursor-pointer group"
                                 >
                                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                                         {/* Image Preview / Banner */}
-                                        {project.image ? (
-                                            <div className="lg:col-span-7 overflow-hidden rounded-2xl border border-[var(--border-color)] bg-[var(--bg-secondary)] relative aspect-video group-hover:border-[var(--border-hover)] transition-colors duration-400">
-                                                <img
-                                                    src={project.image}
-                                                    alt={project.title}
-                                                    loading="lazy"
-                                                    className="w-full h-full object-cover object-top transform group-hover:scale-[1.04] transition-transform duration-700 ease-out"
-                                                />
-                                                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-5">
-                                                    <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/70 backdrop-blur-md text-white text-xs font-medium">
-                                                        <Sparkles size={13} className="text-emerald-400" />
-                                                        Explore Live Website
+                                        <div className="lg:col-span-7 overflow-hidden rounded-2xl border border-[var(--border-color)] bg-[var(--bg-secondary)] relative aspect-video group-hover:border-[var(--border-hover)] transition-colors duration-400">
+                                            <img
+                                                src={project.image}
+                                                alt={project.title}
+                                                loading="lazy"
+                                                className="w-full h-full object-cover object-top transform group-hover:scale-[1.04] transition-transform duration-700 ease-out"
+                                            />
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-between p-5">
+                                                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/70 backdrop-blur-md text-white text-xs font-medium">
+                                                    <Sparkles size={13} className="text-emerald-400" />
+                                                    {project.gallery && project.gallery.length > 1
+                                                        ? `${project.gallery.length} Demo Screens • View Details`
+                                                        : 'Explore Project Details'}
+                                                </span>
+                                                {project.gallery && project.gallery.length > 1 && (
+                                                    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-white/20 backdrop-blur-md text-white text-[11px] font-mono">
+                                                        <Layers size={12} />
+                                                        Gallery
                                                     </span>
-                                                </div>
+                                                )}
                                             </div>
-                                        ) : (
-                                            <div className="lg:col-span-5 p-8 rounded-2xl border border-[var(--border-color)] bg-[var(--gradient-subtle)] flex flex-col justify-between aspect-video lg:aspect-auto">
-                                                <div
-                                                    className="w-14 h-14 rounded-2xl flex items-center justify-center border border-[var(--border-color)] shadow-sm"
-                                                    style={{ background: `${project.accentColor}16`, color: project.accentColor }}
-                                                >
-                                                    <Icon size={28} />
-                                                </div>
-                                                <div className="mt-8">
-                                                    <span className="text-xs font-mono uppercase tracking-widest text-[var(--text-muted)]">Architecture</span>
-                                                    <p className="text-sm text-[var(--text-secondary)] mt-1">Multi-tier verified student document workflow with SQL persistence</p>
-                                                </div>
-                                            </div>
-                                        )}
+                                        </div>
 
                                         {/* Content Information */}
-                                        <div className={project.image ? "lg:col-span-5 flex flex-col justify-between" : "lg:col-span-7 flex flex-col justify-between"}>
+                                        <div className="lg:col-span-5 flex flex-col justify-between">
                                             <div>
                                                 <div className="flex items-center gap-2 mb-3">
                                                     <span
@@ -214,7 +273,7 @@ const Projects = () => {
                                                     onClick={(e) => e.stopPropagation()}
                                                     className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[var(--gradient-btn)] text-white text-xs font-semibold shadow-md hover:opacity-95 transition-all"
                                                 >
-                                                    <span>Live Website</span>
+                                                    <span>{project.id === 1 ? 'Live Website' : 'Explore Demo'}</span>
                                                     <ExternalLink size={13} />
                                                 </a>
                                                 <a
@@ -241,7 +300,7 @@ const Projects = () => {
                 </div>
             </div>
 
-            {/* Apple-grade Detail Modal */}
+            {/* Apple-grade Detail Modal with Multi-Image Interactive Demo Carousel */}
             <AnimatePresence>
                 {selectedProject && (
                     <motion.div
@@ -263,7 +322,7 @@ const Projects = () => {
                             animate={{ scale: 1, y: 0, opacity: 1 }}
                             exit={{ scale: 0.95, y: 20, opacity: 0 }}
                             transition={{ type: 'spring', damping: 28, stiffness: 320 }}
-                            className="relative w-full max-w-2xl rounded-3xl overflow-hidden border border-[var(--border-color)] shadow-2xl glass-panel max-h-[90vh] overflow-y-auto"
+                            className="relative w-full max-w-3xl rounded-3xl overflow-hidden border border-[var(--border-color)] shadow-2xl glass-panel max-h-[90vh] overflow-y-auto"
                             style={{ background: 'var(--bg-primary)' }}
                         >
                             {/* Specular line */}
@@ -277,7 +336,7 @@ const Projects = () => {
                                 <X size={18} />
                             </button>
 
-                            <div className="p-8 md:p-10">
+                            <div className="p-6 sm:p-8 md:p-10">
                                 {/* Header */}
                                 <div className="flex items-center gap-4 mb-6">
                                     <div
@@ -295,9 +354,82 @@ const Projects = () => {
                                     </div>
                                 </div>
 
-                                {selectedProject.image && (
-                                    <div className="mb-6 rounded-2xl overflow-hidden border border-[var(--border-color)]">
-                                        <img src={selectedProject.image} alt={selectedProject.title} className="w-full object-cover aspect-video" />
+                                {/* Multi-Image Demo Gallery */}
+                                {selectedProject.gallery && selectedProject.gallery.length > 0 && (
+                                    <div className="mb-6 rounded-2xl overflow-hidden border border-[var(--border-color)] bg-[var(--bg-secondary)]">
+                                        {/* Main Preview */}
+                                        <div className="relative aspect-video overflow-hidden bg-black/40">
+                                            <img
+                                                src={selectedProject.gallery[activeImageIndex].src}
+                                                alt={selectedProject.gallery[activeImageIndex].title}
+                                                className="w-full h-full object-cover object-top transition-all duration-300"
+                                            />
+
+                                            {selectedProject.gallery.length > 1 && (
+                                                <>
+                                                    <button
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            setActiveImageIndex((prev) =>
+                                                                prev === 0 ? selectedProject.gallery.length - 1 : prev - 1
+                                                            );
+                                                        }}
+                                                        className="absolute left-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/60 text-white hover:bg-black/85 backdrop-blur-md transition-all shadow-md"
+                                                        aria-label="Previous screenshot"
+                                                    >
+                                                        <ChevronLeft size={18} />
+                                                    </button>
+                                                    <button
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            setActiveImageIndex((prev) =>
+                                                                prev === selectedProject.gallery.length - 1 ? 0 : prev + 1
+                                                            );
+                                                        }}
+                                                        className="absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/60 text-white hover:bg-black/85 backdrop-blur-md transition-all shadow-md"
+                                                        aria-label="Next screenshot"
+                                                    >
+                                                        <ChevronRight size={18} />
+                                                    </button>
+                                                    <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-black/70 backdrop-blur-md text-white text-[11px] font-mono">
+                                                        {activeImageIndex + 1} / {selectedProject.gallery.length}
+                                                    </div>
+                                                </>
+                                            )}
+                                        </div>
+
+                                        {/* Caption & Thumbnail Selector Bar */}
+                                        <div className="p-3.5 bg-[var(--glass-bg)] border-t border-[var(--border-color)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                                            <div>
+                                                <p className="text-xs font-semibold text-[var(--text-primary)]">
+                                                    {selectedProject.gallery[activeImageIndex].title}
+                                                </p>
+                                                <p className="text-[11px] text-[var(--text-muted)] line-clamp-1 mt-0.5">
+                                                    {selectedProject.gallery[activeImageIndex].desc}
+                                                </p>
+                                            </div>
+
+                                            {selectedProject.gallery.length > 1 && (
+                                                <div className="flex items-center gap-1.5 self-center sm:self-auto flex-shrink-0">
+                                                    {selectedProject.gallery.map((img, i) => (
+                                                        <button
+                                                            key={i}
+                                                            onClick={(e) => {
+                                                                e.stopPropagation();
+                                                                setActiveImageIndex(i);
+                                                            }}
+                                                            className={`w-2.5 h-2.5 rounded-full transition-all ${
+                                                                activeImageIndex === i
+                                                                    ? 'bg-[#6366f1] w-6'
+                                                                    : 'bg-[var(--border-color)] hover:bg-[var(--text-muted)]'
+                                                            }`}
+                                                            aria-label={`View screenshot ${i + 1}`}
+                                                            title={img.title}
+                                                        />
+                                                    ))}
+                                                </div>
+                                            )}
+                                        </div>
                                     </div>
                                 )}
 
@@ -344,7 +476,7 @@ const Projects = () => {
                                         className="flex-1 text-center py-3.5 rounded-full font-semibold text-sm text-white shadow-md transition-all hover:opacity-95"
                                         style={{ background: `linear-gradient(135deg, ${selectedProject.accentColor}, #4f46e5)` }}
                                     >
-                                        Open Live Website
+                                        {selectedProject.id === 1 ? 'Open Live Website' : 'Explore Repository'}
                                     </a>
                                     <a
                                         href={selectedProject.github}

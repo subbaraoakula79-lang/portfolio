@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6366f1" />
+      <stop offset="50%" stop-color="#8B5CF6" />
+      <stop offset="100%" stop-color="#a855f7" />
+    </linearGradient>
+    <linearGradient id="innerShine" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.35" />
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.05" />
+    </linearGradient>
+    <filter id="subtleShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#000000" flood-opacity="0.35" />
+    </filter>
+  </defs>
+
+  <!-- Squircle Base -->
+  <rect x="2" y="2" width="60" height="60" rx="16" fill="url(#bgGrad)" />
+  <rect x="2.5" y="2.5" width="59" height="59" rx="15.5" fill="none" stroke="url(#innerShine)" stroke-width="1.2" />
+
+  <!-- Letter S Monogram -->
+  <text 
+    x="50%" 
+    y="54%" 
+    text-anchor="middle" 
+    dominant-baseline="central" 
+    font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Space Grotesk', 'Segoe UI', Roboto, sans-serif" 
+    font-weight="800" 
+    font-size="38" 
+    fill="#ffffff" 
+    filter="url(#subtleShadow)"
+    letter-spacing="-1"
+  >S</text>
+</svg>

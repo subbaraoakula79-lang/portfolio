@@ -1,246 +1,193 @@
-# Sanjay Akula — Interactive Developer Portfolio
+# Sanjay Akula — Software Developer Portfolio
 
-> An Apple-inspired, high-performance personal developer portfolio engineered with React 19, Vite, Tailwind CSS v4, and Framer Motion. Featuring sophisticated glassmorphic surfaces, fluid GPU-accelerated motion choreography, 3D interactive project showcases, and accessible responsive design.
+<div align="center">
+
+![Portfolio Banner](public/og-image.svg)
+
+[![React](https://img.shields.io/badge/React-19.2.0-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
+[![Vite](https://img.shields.io/badge/Vite-7.3.1-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4.2.1-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![Framer Motion](https://img.shields.io/badge/Framer_Motion-12.34.3-black?style=for-the-badge&logo=framer&logoColor=blue)](https://www.framer.com/motion/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
+
+**An Apple-inspired, performance-tuned personal developer portfolio engineered with React 19, Tailwind CSS v4, and Framer Motion.**
+
+[Explore Live Demo](https://grace-of-christ-agy.vercel.app/) • [View GitHub Profile](https://github.com/subbaraoakula79-lang) • [Download Resume](public/resume.pdf)
+
+</div>
 
 ---
 
-## 1. Project Title & Overview
+## 📌 Overview
 
-**Sanjay Akula Developer Portfolio** is a modern, single-page creative web application designed to present software engineering projects, technical capabilities, academic foundations, and athletic milestones. Built with an Apple-grade design language, the portfolio emphasizes understated luxury, balanced contrast, layered translucency, and intentional micro-interactions.
+**Sanjay Akula Developer Portfolio** is a single-page web application showcasing production-grade software projects, system architectures, academic foundations, and athletic milestones. Built on Apple-grade design language, the interface emphasizes refined typography, glassmorphism (`backdrop-filter: blur(28px)`), GPU-accelerated spring motion, and accessible micro-interactions.
 
 - **Developer:** Sanjay Akula
-- **Live URL:** [https://sanjay-portfolio-2026.web.app](https://sanjay-portfolio-2026.web.app)
-- **Repository:** [https://github.com/subbaraoakula79-lang/portfolio](https://github.com/subbaraoakula79-lang/portfolio)
-- **Hosting Platform:** Firebase Hosting & Vercel compatible
+- **Academic Focus:** BSc Information Technology (2nd Year Ongoing, PR Degree College, Adikavi Nannaya University)
+- **Primary Stack:** React 19, JavaScript (ESNext), Python, SQL, Firebase, Tailwind CSS v4
+- **Specialization:** Full-Stack Web Development, System Portals, Responsive UI/UX Engineering, Algorithmic Problem Solving
 
 ---
 
-## 2. Portfolio Introduction
+## 🚀 Key Highlights & New Enhancements
 
-This portfolio bridges the gap between engineering discipline and visual artistry. Sanjay is an Information Technology student at PR Degree College (Adikavi Nannaya University) with core strengths in Java, Python, JavaScript, and Full-Stack Web Development, combined with the focus and mental discipline developed as an Inter-University bronze medalist in Archery.
+### 1. 🖼️ Multi-Screenshot Project Gallery & Demos
+- **National Admission Portal (NAP):** Full visual case study featuring a 5-screenshot carousel with interactive thumbnail selection and detailed capability breakdowns:
+  1. **Landing Hero:** *"Your Future Starts with Smart Admissions"* (UG & PG application gateway).
+  2. **Core Capabilities:** DigiLocker integration, AI Counselor, fair reservation system, multi-round allotment.
+  3. **Pathway Selection:** Dedicated flows for Undergraduate, Postgraduate, Engineering, and Polytechnic Diploma.
+  4. **Admin Console:** Real-time analytics for students, colleges, course allotments, payments, and audit logs.
+  5. **Multilingual AI Counselor:** Instant guidance in English, Telugu, Hindi, and Tenglish.
+- **Grace of Christ Church Platform:** High-resolution responsive banner, media-first sermon archives, and live production deployment on Vercel.
 
----
+### 2. 🎨 Custom Brand Identity & OpenGraph Metadata
+- **Monogram Favicon ("S"):** High-DPI squircle vector icon with violet-indigo gradient, subtle drop shadow, and crisp typography.
+- **Social Preview Card (`og:image`):** 1200×630 SVG social card optimized for rich link previews across LinkedIn, WhatsApp, X (Twitter), and Discord.
+- **Dynamic Category Filters:** Instant project category filtering (`All`, `Featured Full Stack`, `Full Stack System`) with smooth layout animations.
 
-## 3. Key Features
+### 3. ⚡ 1-Click Clipboard Utilities
+- **Instant Copy on Email & Phone:** One-click copy buttons with interactive `"Copied!"` tooltips and non-secure context fallbacks.
+- **Ready for Real Email Delivery:** Built-in integration for [Web3Forms](https://web3forms.com), Formspree, or EmailJS to receive contact form messages directly in your inbox.
 
-- **Apple-Inspired Glassmorphism:** Layered glass panels (`backdrop-filter: blur(28px) saturate(190%)`), hairline specular highlight borders, and subtle elevation depth.
-- **Dynamic 3D Project Tilt:** Interactive mouse-tracking perspective transforms on project cards with smooth cubic-bezier easing.
-- **Grace of Christ (GOC) Showcase:** Production showcase of the live church web platform with interactive modal details, responsive aspect-ratio banner, and direct external launch.
-- **Command Palette (`⌘K` / `Ctrl+K`):** Global keyboard shortcut modal for instantaneous section navigation and external profile jumping.
-- **Categorized Technical Matrix:** Interactive category-filtered tabs for Programming Languages, Web Technologies, Database Systems, Tools, and Core Problem Solving.
-- **Magnetic Buttons & Fluid Cursor:** Physics-based spring pull buttons and responsive contextual cursor feedback.
-- **Dynamic Island-Style Floating Navbar:** Sticky glass pill navigation with automated `IntersectionObserver` active-section tracking and smooth spring layout pill underlay.
-- **Light & Dark Theme Engine:** Seamless system and manual theme toggling with smooth token transitions across the entire DOM tree.
-- **Zero-Bloat Minimalist Footer:** Elegant typography, current copyright, social networking shortcuts, and scroll-to-top utility without framework clutter.
-
----
-
-## 4. Technologies Used
-
-### Frontend Core
-- **React 19 (`^19.2.0`)**: Modern component architecture utilizing hooks and concurrent rendering features.
-- **Vite 7 (`^7.3.1`)**: Next-generation lightning-fast frontend tooling and production bundler.
-- **Tailwind CSS v4 (`^4.2.1`)**: Utility-first CSS engine utilizing modern `@theme` variables and high-performance compilation.
-- **Framer Motion (`^12.34.3`)**: Declarative animations, layout animations (`layoutId`), and spring physics.
-- **Lucide React (`^0.575.0`)**: Crisp, accessible, and scalable SVG iconography.
-- **Typewriter Effect (`^2.22.0`)**: Dynamic animated textual typewriter elements.
-
-### Hosting & Infrastructure
-- **Firebase Hosting**: Worldwide CDN caching, SSL encryption, and instant preview channel support.
-- **Git & GitHub**: Version management and collaborative continuous deployment pipeline.
+### 4. 🧠 Current Initiatives ("Now" Section)
+- **Algorithmic Problem Solving:** Active LeetCode practice covering Arrays & Hashing, Two Pointers, Binary Search, Trees, and Recursion in Java & Python.
+- **Full-Stack Engineering:** Scalable relational schema design (SQL) and cloud persistence with Firebase.
 
 ---
 
-## 5. Main Sections of the Portfolio
+## 🛠️ Tech Stack & Architecture
 
-1. **Navigation Bar (`Navbar.jsx`):** Floating translucent glass pill with logo monogram, section links, search shortcut, and theme toggle.
-2. **Hero Section (`Hero.jsx`):** Bold animated staggered headline reveal, dynamic role ticker, dual action buttons (View Projects, Contact Me), and animated metric counters.
-3. **About Me & Skills (`About.jsx`):** Editorial-style narrative, formal academic timeline, interactive categorized tech stack pills, and engineering pillars.
-4. **Selected Work (`Projects.jsx`):** High-impact cards featuring the **Grace of Christ (GOC)** platform and **National Admission Portal**, equipped with 3D tilt and modal breakdowns.
-5. **Milestones (`Achievement.jsx`):** Recognition of the Inter-University Archery Bronze medal, linking athletic focus to software debugging rigor.
-6. **Current Initiatives (`NowSection.jsx`):** Real-time status indicators on active algorithm practice (LeetCode) and full-stack software development.
-7. **Contact (`Contact.jsx`):** Glassmorphic input fields, state-managed feedback submission, and quick contact cards for Email, Phone, LinkedIn, and Instagram.
-8. **Footer (`App.jsx`):** Minimalist copyright, brand links, social channels, and scroll-to-top utility.
-
----
-
-## 6. Animation and Interaction Details
-
-- **Spring Physics:** Buttons, modals, and cursor followers leverage damped springs (`stiffness: 300, damping: 28`) to prevent robotic motion.
-- **Perspective Tilt:** The custom `TiltCard` computes relative cursor offset across axes (`(clientX - left) / width - 0.5`) and applies damped rotations.
-- **Specular Border Highlights:** Cards utilize pseudo-elements (`::before`) with 1px linear gradients that catch light dynamically upon hover.
-- **Accessibility Motion Fallback:** The CSS includes `@media (prefers-reduced-motion: reduce)` which zeroes animation durations for users with vestibular sensitivities.
+| Layer | Technologies |
+| :--- | :--- |
+| **Frontend Framework** | [React 19](https://react.dev/) with functional hooks & concurrent features |
+| **Build & Tooling** | [Vite 7](https://vitejs.dev/) with Rollup bundler & ESBuild |
+| **Styling & Design System** | [Tailwind CSS v4](https://tailwindcss.com/) with CSS variables & `@theme` tokens |
+| **Motion & Physics** | [Framer Motion 12](https://www.framer.com/motion/) spring physics, layout transforms & gesture recognition |
+| **Icons & Typography** | [Lucide React](https://lucide.dev/), Space Grotesk, Inter, JetBrains Mono |
+| **Deployment** | Compatible with [Vercel](https://vercel.com/) and [Firebase Hosting](https://firebase.google.com/docs/hosting) |
 
 ---
 
-## 7. Project Structure
+## 📁 Repository Structure
 
 ```
 interactive-portfolio/
-├── .firebase/                    # Firebase deployment cache and hosting artifacts
-├── .vscode/                      # Editor configuration (CSS lint suppression for Tailwind v4)
-├── public/                       # Static public assets
-│   ├── goc.png                   # Grace of Christ platform screenshot
+├── public/                       # Static public assets served at root
+│   ├── favicon.svg               # Custom 'S' brand monogram vector icon
+│   ├── goc.png                   # Grace of Christ platform production screenshot
+│   ├── nap-thumb.jpg             # National Admission Portal main thumbnail
+│   ├── nap/                      # High-resolution demo screenshots (5 views)
+│   │   ├── nap-hero.jpg          # Landing & Smart Admissions
+│   │   ├── nap-features.jpg      # DigiLocker, AI Chatbot & Allotment features
+│   │   ├── nap-admissions.jpg    # Admission types & pathways
+│   │   ├── nap-admin.jpg         # Administrator analytics dashboard
+│   │   └── nap-ai-counselor.jpg  # Multilingual AI Counselor modal
+│   ├── og-image.svg              # 1200x630 OpenGraph / Twitter social share banner
 │   ├── profile.jpg               # Professional headshot
-│   ├── new-resume.pdf            # Updated digital resume PDF
-│   └── vite.svg                  # Vite logo
+│   └── resume.pdf                # Official technical resume (inline viewable)
 ├── src/
-│   ├── assets/                   # Bundled graphics
 │   ├── components/
 │   │   ├── layout/
-│   │   │   └── Navbar.jsx        # Floating glass navigation bar
+│   │   │   └── Navbar.jsx        # Floating glass pill navbar with active section indicator
 │   │   ├── sections/
+│   │   │   ├── Hero.jsx          # Staggered headline reveal, live status badge, metrics
 │   │   │   ├── About.jsx         # Narrative, education timeline & categorized skills
-│   │   │   ├── Achievement.jsx   # Archery championship showcase
-│   │   │   ├── Contact.jsx       # Contact form & verified social endpoints
-│   │   │   ├── Hero.jsx          # Headline, metrics counter & CTA triggers
-│   │   │   ├── NowSection.jsx    # Current initiatives & real-time focus
-│   │   │   └── Projects.jsx      # 3D interactive project cards & details modal
+│   │   │   ├── Projects.jsx      # 3D interactive cards, category filters, multi-image modal
+│   │   │   ├── Achievement.jsx   # Inter-University Archery Bronze medal showcase
+│   │   │   ├── NowSection.jsx    # Real-time focus cards with DSA & full-stack topic tags
+│   │   │   └── Contact.jsx       # Contact form, 1-click clipboard copy, verified links
 │   │   └── ui/
-│   │       ├── BackgroundEffect.jsx # Dot grid canvas & ambient gradient mesh
-│   │       ├── CommandPalette.jsx   # Global keyboard command modal (⌘K)
-│   │       ├── CustomCursor.jsx     # Mouse tracking blend-mode circle
-│   │       ├── MagneticButton.jsx   # Physics-based magnetic hover component
-│   │       └── ScrollProgress.jsx   # Top viewport scroll progress indicator
-│   ├── App.css                   # Global component rules
-│   ├── App.jsx                   # Application root, theme provider & footer
-│   ├── index.css                 # Design tokens, Apple glassmorphic classes & CSS variables
-│   └── main.jsx                  # React DOM entrypoint
-├── eslint.config.js              # ESLint 9 flat configuration
-├── firebase.json                 # Firebase Hosting rewrites, headers & cache policies
-├── index.html                    # Root HTML document with font imports
-├── package.json                  # Dependencies, metadata & build scripts
-├── postcss.config.js             # PostCSS plugin pipeline
-└── vite.config.js                # Vite build configuration
+│   │       ├── BackgroundEffect.jsx # Ambient gradient canvas & subtle dot matrix
+│   │       ├── CommandPalette.jsx   # Global keyboard navigation modal (⌘K / Ctrl+K)
+│   │       ├── CustomCursor.jsx     # Smooth spring cursor with blend mode
+│   │       ├── MagneticButton.jsx   # Physics-based magnetic hover trigger
+│   │       └── ScrollProgress.jsx   # Reading progress bar at top of viewport
+│   ├── data/
+│   │   ├── skillsData.js         # Decoupled skill sets, education, and metric constants
+│   │   └── skillsData.test.ts    # Test suite verifying data integrity
+│   ├── App.jsx                   # Root application wrapper & minimalist Apple footer
+│   ├── index.css                 # Apple design tokens, glassmorphism, responsive utilities
+│   └── main.jsx                  # Application entry point
+├── index.html                    # Root HTML document with SEO, OpenGraph & preloads
+├── package.json                  # Dependencies, build scripts & engine constraints
+├── vite.config.js                # Vite configuration with @ path alias
+└── README.md                     # Comprehensive documentation
 ```
 
 ---
 
-## 8. Prerequisites
+## ⚡ Getting Started
 
-Ensure your development workstation has the following installed:
+### Prerequisites
 - **Node.js**: `v18.0.0` or higher (Node 20+ LTS recommended)
-- **npm**: `v9.0.0` or higher (or `pnpm` / `yarn`)
-- **Git**: Latest version
+- **npm**: `v9.0.0` or higher
 
----
-
-## 9. Installation Instructions
-
-1. **Clone the repository:**
+### Installation
+1. Clone the repository:
    ```bash
    git clone https://github.com/subbaraoakula79-lang/portfolio.git
    cd portfolio
    ```
 
-2. **Install project dependencies:**
+2. Install dependencies:
    ```bash
    npm install
    ```
 
----
-
-## 10. Environment Variable Setup
-
-This portfolio runs client-side with static and API-connected endpoints and does not require mandatory local `.env` variables for general previewing. Optional analytics or backend contact endpoints may be specified in a `.env.local` file:
-
-```env
-# Optional configuration
-VITE_SITE_URL=https://sanjay-portfolio-2026.web.app
-```
+3. Launch development server:
+   ```bash
+   npm run dev
+   ```
+   Open [http://localhost:3000](http://localhost:3000) to view the portfolio.
 
 ---
 
-## 11. Development Server Commands
+## 📧 Configuring Real Email Delivery (Optional)
 
-To launch the local development server with Hot Module Replacement (HMR):
+The contact form is configured to work out of the box with [Web3Forms](https://web3forms.com) (free, no backend required).
 
+1. Get a free access key at [web3forms.com](https://web3forms.com) (enter your email `akulasanjay84@gmail.com`).
+2. Create a `.env.local` file in the project root:
+   ```env
+   VITE_WEB3FORMS_ACCESS_KEY=your-access-key-here
+   ```
+3. Restart the dev server (`npm run dev`). Messages sent through the form will now arrive directly in your inbox.
+*(If no key is configured, the form gracefully simulates successful submission with a local fallback notice).*
+
+---
+
+## 🔨 Available Scripts
+
+- **`npm run dev`**: Starts the Vite local development server with Hot Module Replacement (HMR).
+- **`npm run build`**: Compiles and bundles production-ready static assets in `dist/`.
+- **`npm run lint`**: Runs ESLint across all JavaScript/JSX files with zero-tolerance rules.
+- **`npm run preview`**: Serves the local production build for final verification.
+
+---
+
+## 🌐 Deployment
+
+### Vercel (Recommended)
+1. Push your code to GitHub.
+2. Import the repository into [Vercel](https://vercel.com).
+3. Framework Preset: **Vite**.
+4. Click **Deploy**.
+
+### Firebase Hosting
 ```bash
-npm run dev
-```
-
-The application will start immediately at:
-`http://localhost:5173/`
-
----
-
-## 12. Production Build Instructions
-
-To compile and bundle the application into production-ready static assets:
-
-```bash
+npx firebase login
 npm run build
-```
-
-Vite will bundle and minify all JavaScript, CSS, and HTML files into the `dist/` directory.
-
-To preview the production build locally:
-```bash
-npm run preview
+npx firebase deploy --only hosting
 ```
 
 ---
 
-## 13. Deployment Instructions
+## 📄 License & Contact
 
-### Deploy to Firebase Hosting (Configured)
-1. Ensure the Firebase CLI is installed and authenticated:
-   ```bash
-   npx firebase login
-   ```
-2. Build the latest production bundle:
-   ```bash
-   npm run build
-   ```
-3. Deploy to the live hosting channel:
-   ```bash
-   npx firebase deploy --only hosting
-   ```
+Distributed under the **MIT License**.
 
-### Deploy to Vercel
-1. Install the Vercel CLI or import the repository via the Vercel Dashboard.
-2. Build command: `npm run build`
-3. Output directory: `dist`
-
----
-
-## 14. Asset Management
-
-- **Public Assets (`/public`):** Store non-bundled assets such as `goc.png`, `profile.jpg`, and favicons directly in the `public/` directory. They are served at the web root `/filename.ext`.
-- **Image Optimization:** Images should be formatted in modern compressed formats (`.webp` or optimized `.png`/`.jpg`) to ensure rapid Time to Interactive (TTI).
-
----
-
-## 15. Customization Guide
-
-- **Color Palette & Themes:** Modify design tokens in `src/index.css` under the `:root` and `.dark` blocks. Adjust `--color-primary`, `--gradient-btn`, and glass opacity tokens to change the visual identity.
-- **Projects Data:** Edit the `projects` array in `src/components/sections/Projects.jsx` to update descriptions, tech badges, live URLs, or thumbnails.
-- **Skills Matrix:** Update `skillCategories` in `src/components/sections/About.jsx` to reflect new competencies.
-- **Contact Details:** Modify `contactLinks` in `src/components/sections/Contact.jsx` and social links in `src/App.jsx`.
-
----
-
-## 16. Responsive Design Details
-
-The layout is built mobile-first and tested thoroughly across multiple screen breakpoints:
-- **Mobile (`< 640px`):** Single-column stacked cards, full-width touch targets, collapsible glass sheet navigation.
-- **Tablet (`640px - 1024px`):** Balanced two-column grids, optimized typography scaling, fluid stats display.
-- **Desktop (`> 1024px`):** Expansive multi-column layouts, 3D mouse tilt tracking, custom blend cursor, and floating nav pill.
-
----
-
-## 17. Accessibility and Performance Notes
-
-- **Keyboard Navigation:** Full tab order support, `ESC` dismiss on all modals, and `⌘K` global shortcut.
-- **High Contrast:** All text passes WCAG AA contrast criteria across both light and dark mode backgrounds.
-- **Semantic HTML:** Utilizes semantic `<header>`, `<main>`, `<section>`, and `<footer>` elements.
-- **Reduced Motion:** Automatic disabling of parallax, card tilt, and continuous loops when `prefers-reduced-motion: reduce` is detected.
-
----
-
-## 18. Credits & Acknowledgements
-
-- **Design Philosophy:** Inspired by Apple's human interface guidelines and minimalist Scandinavian UI aesthetics.
-- **Icons:** [Lucide Icons](https://lucide.dev)
-- **Typography:** Space Grotesk, Inter, and JetBrains Mono via Google Fonts.
-- **Engineering:** Crafted with care by **Sanjay Akula**.
+- **Author:** Sanjay Akula
+- **Email:** [akulasanjay84@gmail.com](mailto:akulasanjay84@gmail.com)
+- **Phone:** [+91 8639064377](tel:8639064377)
+- **LinkedIn:** [Akula Sanjay](https://www.linkedin.com/in/akula-sanjay-a6477b38a)
+- **GitHub:** [@subbaraoakula79-lang](https://github.com/subbaraoakula79-lang)
