@@ -60,7 +60,7 @@ export const FigmaCollaborationBackdrop = ({ buildState, config }) => {
             initial={{ opacity: 1 }}
             animate={{ opacity: buildState.blackScreenOpacity }}
             transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
-            className="pointer-events-none fixed inset-0 z-[5]"
+            className="pointer-events-none fixed inset-0 z-30"
             style={{
                 backgroundColor: '#030306',
                 backgroundImage:

@@ -64,7 +64,6 @@ export function precacheAndDecodeImage(src, width, height, timeoutMs = 2000) {
                     finish(true, img);
                 })
                 .catch(() => {
-                    // Fallback to standard onload if decode() rejects on partial stream
                     img.onload = () => {
                         clearTimeout(timer);
                         finish(true, img);
@@ -99,53 +98,42 @@ function computeSectionCameraY(sectionKey, fallbackY = 0) {
     if (sectionKey === 'about-bio') {
         const el = document.getElementById('about');
         if (!el) return fallbackY;
-        return Math.max(0, el.offsetTop + 180);
-    }
-
-    if (sectionKey === 'about-skills') {
-        const el = document.getElementById('about');
-        if (!el) return fallbackY;
-        return Math.max(0, el.offsetTop + 660);
+        return Math.max(0, el.offsetTop);
     }
 
     if (sectionKey === 'projects-1') {
         const el = document.getElementById('projects');
         if (!el) return fallbackY;
-        return Math.max(0, el.offsetTop + 80);
-    }
-
-    if (sectionKey === 'projects-2') {
-        const el = document.getElementById('projects');
-        if (!el) return fallbackY;
-        return Math.max(0, el.offsetTop + 560);
+        return Math.max(0, el.offsetTop);
     }
 
     if (sectionKey === 'achievements') {
         const el = document.getElementById('achievements');
         if (!el) return fallbackY;
-        return Math.max(0, el.offsetTop + 80);
+        return Math.max(0, el.offsetTop);
     }
 
     if (sectionKey === 'contact') {
         const el = document.getElementById('contact');
         if (!el) return fallbackY;
-        return Math.max(0, el.offsetTop + 72);
+        return Math.max(0, el.offsetTop);
     }
 
     return fallbackY;
 }
 
 /**
- * 32.5-Second (30–35s) 10-Cursor Collaborative Portfolio Construction Controller Hook.
- * - Uses effective layout viewport width (>= 1024 CSS px), supporting mobile "Desktop Site" mode.
- * - Below 1024 CSS px, skips the desktop intro and reveals the website with a subtle blur-to-clear fade-in.
- * - Pre-caches and decodes all animation & media assets during the opening black screen to prevent layout shift.
+ * 41.5-Second Exact 7-Phase Sequential Collaborative Portfolio Construction Controller Hook.
+ * - Follows the exact reference video sequence:
+ *   Cursors move -> Website fades in -> Cursors travel to Hero -> Cursors pause ->
+ *   Designers receive assignments -> Actual Hero construction -> Remaining sections -> Final reveal.
  */
 export function useHeroCollaboration() {
     const prefersReducedMotion = useReducedMotion();
     const [viewportWidth, setViewportWidth] = useState(() => getEffectiveViewportWidth());
     const [fallbackTriggered, setFallbackTriggered] = useState(false);
     const [assetsPrecached, setAssetsPrecached] = useState(() => decodedImageCache.size > 0);
+    
 
     const hardwareConcurrency =
         typeof navigator !== 'undefined' && typeof navigator.hardwareConcurrency === 'number'
@@ -158,7 +146,7 @@ export function useHeroCollaboration() {
     const [rawStageIndex, setRawStageIndex] = useState(() => {
         const initialWidth = getEffectiveViewportWidth();
         const initialSkip = shouldSkipIntro(initialWidth, !!prefersReducedMotion);
-        const initialPhase = initialSkip ? 'complete' : 'atmosphere';
+        const initialPhase = initialSkip ? 'COMPLETE' : 'INTRO';
         if (typeof document !== 'undefined') {
             document.documentElement.setAttribute('data-hero-intro', initialPhase);
             document.documentElement.setAttribute(
@@ -174,7 +162,7 @@ export function useHeroCollaboration() {
     });
 
     const stageIndex = skipIntro ? FINAL_INTRO_STAGE : rawStageIndex;
-    const buildState = getStageBuildState(stageIndex);
+    const baseBuildState = getStageBuildState(stageIndex);
     const config = getCollaborationConfig(
         viewportWidth,
         !!prefersReducedMotion,
@@ -183,7 +171,32 @@ export function useHeroCollaboration() {
     const cameraRafRef = useRef(null);
     const timersRef = useRef([]);
 
-    // Safe Failure Fallback terminator — guarantees no blank screen, locked scroll, or stale overlay
+    // Progressive headline typing controller during Stage 5 (17.0s - 20.5s)
+    const [typingProgress, setTypingProgress] = useState(0);
+
+    useEffect(() => {
+        if (skipIntro || stageIndex !== 5) return;
+
+        const t0 = setTimeout(() => setTypingProgress(1), 50);
+        const t1 = setTimeout(() => setTypingProgress(2), 550);
+        const t2 = setTimeout(() => setTypingProgress(3), 1150);
+        const t3 = setTimeout(() => setTypingProgress(4), 1750);
+        const t4 = setTimeout(() => setTypingProgress(5), 2350);
+        return () => {
+            clearTimeout(t0);
+            clearTimeout(t1);
+            clearTimeout(t2);
+            clearTimeout(t3);
+            clearTimeout(t4);
+        };
+    }, [stageIndex, skipIntro]);
+
+    const buildState = {
+        ...baseBuildState,
+        headlineWordsVisibleCount: skipIntro || stageIndex > 5 ? 5 : stageIndex === 5 ? typingProgress : 0,
+    };
+
+    // Safe Failure Fallback terminator
     const terminateIntroSafely = useCallback(() => {
         timersRef.current.forEach(clearTimeout);
         timersRef.current = [];
@@ -196,13 +209,13 @@ export function useHeroCollaboration() {
         if (typeof window !== 'undefined' && typeof document !== 'undefined') {
             document.body.style.overflow = '';
             document.documentElement.style.scrollBehavior = '';
-            document.documentElement.setAttribute('data-hero-intro', 'complete');
+            document.documentElement.setAttribute('data-hero-intro', 'COMPLETE');
             document.documentElement.setAttribute('data-portfolio-intro-active', 'false');
             window.scrollTo(0, 0);
         }
     }, []);
 
-    // Expose programmatic fallback trigger for automated verification and runtime error recovery
+    // Expose programmatic fallback trigger
     useEffect(() => {
         if (typeof window === 'undefined') return;
         window.__triggerIntroFallback = terminateIntroSafely;
@@ -218,7 +231,7 @@ export function useHeroCollaboration() {
         };
     }, [buildState.isComplete, terminateIntroSafely]);
 
-    // Pre-cache and decode all image & font assets during the 0-3s black screen ('atmosphere')
+    // Pre-cache assets during the initial black screen ('INTRO')
     useEffect(() => {
         let cancelled = false;
         const imageAssets = INTRO_ASSET_MANIFEST.filter((item) => item.type === 'image');
@@ -248,7 +261,7 @@ export function useHeroCollaboration() {
         };
     }, []);
 
-    // Track effective layout viewport width on resize; cancel intro safely if resized < 1024 CSS px
+    // Track effective viewport width; cancel intro if resized < 1024 CSS px
     useEffect(() => {
         if (typeof window === 'undefined') return;
         const handleResize = () => {
@@ -268,7 +281,7 @@ export function useHeroCollaboration() {
         return () => window.removeEventListener('resize', handleResize);
     }, [prefersReducedMotion, terminateIntroSafely]);
 
-    // Sync current intro phase and active state to <html>
+    // Sync intro phase attribute to <html>
     useEffect(() => {
         if (typeof document !== 'undefined') {
             document.documentElement.setAttribute('data-hero-intro', buildState.phase);
@@ -279,7 +292,7 @@ export function useHeroCollaboration() {
         }
     }, [buildState.phase, buildState.isComplete]);
 
-    // Smooth camera pan & gentle zoom choreography across the real portfolio sections
+    // Smooth camera pan choreography across sections
     useEffect(() => {
         if (typeof window === 'undefined' || typeof document === 'undefined') return;
 
@@ -305,7 +318,7 @@ export function useHeroCollaboration() {
             return;
         }
 
-        const durationMs = stageIndex >= 9 ? 1350 : 1200;
+        const durationMs = stageIndex >= 11 ? 1600 : 1300;
         const startTime = performance.now();
         document.documentElement.style.scrollBehavior = 'auto';
 
@@ -336,7 +349,7 @@ export function useHeroCollaboration() {
         };
     }, [stageIndex, buildState.activeSection, buildState.fallbackCameraY, buildState.isComplete]);
 
-    // Temporarily block ordinary page scrolling & keyboard scroll during intro; restore on completion
+    // Block manual scrolling & keyboard scroll during intro (restores on completion)
     useEffect(() => {
         if (typeof window === 'undefined' || typeof document === 'undefined') return;
 
@@ -379,7 +392,7 @@ export function useHeroCollaboration() {
         };
     }, [buildState.interactionLocked]);
 
-    // Schedule the 32.5-second (30–35s) collaborative construction timeline + bounded safety watchdog
+    // Schedule the 41.5-second collaborative construction timeline + safety watchdog
     useEffect(() => {
         if (skipIntro) {
             return;
@@ -405,10 +418,9 @@ export function useHeroCollaboration() {
         };
     }, [skipIntro, terminateIntroSafely]);
 
-    // Compute minimal Hero selection outlines during Stages 2..3 (7–14s detailed Hero construction)
-    // Specification: "Selection is minimal: colored outline and role label; handles only during resize."
+    // Compute minimal Hero selection outlines during Stages 4..6 (Hero construction)
     const elementStates = {};
-    if (stageIndex >= 2 && stageIndex <= 3) {
+    if (stageIndex >= 4 && stageIndex <= 6) {
         for (const collab of collaboratorsData) {
             const cursorState = getCursorStageState(collab, stageIndex);
             if (cursorState.target && cursorState.active) {
