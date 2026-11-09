@@ -405,3 +405,76 @@ img { image-rendering: -webkit-optimize-contrast; }
     transition-duration: 0.001ms !important;
   }
 }
+
+/* ─── Cinematic Full-Portfolio Intro Coordination ─── */
+@keyframes sub1024-blur-clear {
+  0% {
+    opacity: 0;
+    filter: blur(5px);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0px);
+  }
+}
+
+html[data-sub1024-fade="true"] #root {
+  animation: sub1024-blur-clear 0.55s cubic-bezier(0.16, 1, 0.3, 1) 1 forwards;
+}
+
+html[data-portfolio-intro-active="true"] {
+  scrollbar-width: none;
+}
+html[data-portfolio-intro-active="true"]::-webkit-scrollbar {
+  display: none;
+}
+
+html[data-portfolio-intro-active="true"]:not([data-hero-intro="reveal"]) header,
+html[data-portfolio-intro-active="true"]:not([data-hero-intro="reveal"]) .fixed.top-0.left-0.right-0 {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transform: translateY(-12px);
+}
+
+html[data-hero-intro="reveal"] header,
+html[data-hero-intro="complete"] header {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Opening atmosphere & team formation (0-7s): hide sections below Hero */
+html[data-hero-intro="atmosphere"] main > section:not(#home),
+html[data-hero-intro="atmosphere"] footer,
+html[data-hero-intro="teams"] main > section:not(#home),
+html[data-hero-intro="teams"] footer {
+  opacity: 0 !important;
+}
+
+/* Smooth camera zoom framing across 30-35s construction phases */
+html[data-portfolio-intro-active="true"] main > section {
+  transition: transform 1.05s cubic-bezier(0.22, 1, 0.36, 1);
+}
+html[data-hero-intro="atmosphere"] main > section {
+  transform: scale(0.935);
+}
+html[data-hero-intro="teams"] main > section {
+  transform: scale(0.955);
+}
+html[data-hero-intro="section-about"] main > section,
+html[data-hero-intro="section-projects"] main > section,
+html[data-hero-intro="section-milestones"] main > section,
+html[data-hero-intro="section-contact"] main > section,
+html[data-hero-intro="polish-sections"] main > section {
+  transform: scale(0.96);
+}
+html[data-hero-intro="overview"] main > section {
+  transform: scale(0.95);
+}
+html[data-hero-intro="reveal"] main > section,
+html[data-hero-intro="complete"] main > section {
+  transform: scale(1);
+}
+
+
+

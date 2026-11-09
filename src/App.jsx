@@ -15,13 +15,32 @@ import './index.css';
 import { useState, useEffect } from 'react';
 
 function App() {
-  const [theme, setTheme] = useState('dark');
+  const [theme, setTheme] = useState(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const saved = localStorage.getItem('portfolio-theme');
+        if (saved === 'light' || saved === 'dark') return saved;
+      } catch {
+        // Ignore storage read errors
+      }
+    }
+    return 'dark';
+  });
 
   useEffect(() => {
+    const root = document.documentElement;
     if (theme === 'dark') {
-      document.documentElement.classList.add('dark');
+      root.classList.add('dark');
+      root.style.backgroundColor = '#050508';
     } else {
-      document.documentElement.classList.remove('dark');
+      root.classList.remove('dark');
+      root.style.backgroundColor = '#fbfbfd';
+    }
+    root.setAttribute('data-theme-resolved', theme);
+    try {
+      localStorage.setItem('portfolio-theme', theme);
+    } catch {
+      // Ignore storage write errors
     }
   }, [theme]);
 

@@ -135,14 +135,29 @@ const Projects = () => {
                                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                                         {/* Image Preview / Banner */}
                                         {project.image ? (
-                                            <div className="lg:col-span-7 overflow-hidden rounded-2xl border border-[var(--border-color)] bg-[var(--bg-secondary)] relative aspect-video group-hover:border-[var(--border-hover)] transition-colors duration-400">
+                                            <div
+                                                className="lg:col-span-7 overflow-hidden rounded-2xl border border-[var(--border-color)] bg-[var(--bg-secondary)] relative aspect-video group-hover:border-[var(--border-hover)] transition-colors duration-400"
+                                                style={{ aspectRatio: '16 / 9', contain: 'layout paint' }}
+                                            >
+                                                {/* Pre-cached lightweight SVG placeholder frame behind lazy-loaded image */}
+                                                <div
+                                                    className="absolute inset-0 flex items-center justify-center pointer-events-none text-[var(--text-muted)] opacity-25"
+                                                    aria-hidden="true"
+                                                >
+                                                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                                                        <use href="#figma-image-placeholder-icon" />
+                                                    </svg>
+                                                </div>
                                                 <img
                                                     src={project.image}
                                                     alt={project.title}
+                                                    width="1280"
+                                                    height="720"
                                                     loading="lazy"
-                                                    className="w-full h-full object-cover object-top transform group-hover:scale-[1.04] transition-transform duration-700 ease-out"
+                                                    decoding="async"
+                                                    className="w-full h-full object-cover object-top relative z-10 transform group-hover:scale-[1.04] transition-transform duration-700 ease-out"
                                                 />
-                                                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-5">
+                                                <div className="absolute inset-0 z-20 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-5">
                                                     <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/70 backdrop-blur-md text-white text-xs font-medium">
                                                         <Sparkles size={13} className="text-emerald-400" />
                                                         Explore Live Website
@@ -150,9 +165,12 @@ const Projects = () => {
                                                 </div>
                                             </div>
                                         ) : (
-                                            <div className="lg:col-span-5 p-8 rounded-2xl border border-[var(--border-color)] bg-[var(--gradient-subtle)] flex flex-col justify-between aspect-video lg:aspect-auto">
+                                            <div
+                                                className="lg:col-span-5 p-8 rounded-2xl border border-[var(--border-color)] bg-[var(--gradient-subtle)] flex flex-col justify-between aspect-video lg:aspect-auto min-h-[220px]"
+                                                style={{ contain: 'layout style' }}
+                                            >
                                                 <div
-                                                    className="w-14 h-14 rounded-2xl flex items-center justify-center border border-[var(--border-color)] shadow-sm"
+                                                    className="w-14 h-14 min-w-[56px] min-h-[56px] shrink-0 rounded-2xl flex items-center justify-center border border-[var(--border-color)] shadow-sm"
                                                     style={{ background: `${project.accentColor}16`, color: project.accentColor }}
                                                 >
                                                     <Icon size={28} />
@@ -296,8 +314,16 @@ const Projects = () => {
                                 </div>
 
                                 {selectedProject.image && (
-                                    <div className="mb-6 rounded-2xl overflow-hidden border border-[var(--border-color)]">
-                                        <img src={selectedProject.image} alt={selectedProject.title} className="w-full object-cover aspect-video" />
+                                    <div className="mb-6 rounded-2xl overflow-hidden border border-[var(--border-color)] aspect-video">
+                                        <img
+                                            src={selectedProject.image}
+                                            alt={selectedProject.title}
+                                            width="1280"
+                                            height="720"
+                                            loading="lazy"
+                                            decoding="async"
+                                            className="w-full h-full object-cover aspect-video"
+                                        />
                                     </div>
                                 )}
 

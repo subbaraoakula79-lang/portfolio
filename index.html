@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
@@ -11,6 +11,27 @@
     <meta name="author" content="Akula Sanjay" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" as="image" href="/profile.jpg" fetchpriority="high" />
+    <link rel="preload" as="image" href="/goc.png" />
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem('portfolio-theme');
+          var theme = saved === 'light' || saved === 'dark' ? saved : 'dark';
+          var root = document.documentElement;
+          if (theme === 'dark') {
+            root.classList.add('dark');
+            root.style.backgroundColor = '#050508';
+          } else {
+            root.classList.remove('dark');
+            root.style.backgroundColor = '#fbfbfd';
+          }
+          root.setAttribute('data-theme-resolved', theme);
+        } catch (e) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
     <title>Sanjay Akula — Developer Portfolio</title>
   </head>
   <body>
