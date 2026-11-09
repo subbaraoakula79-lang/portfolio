@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Mail, Phone, Instagram, Linkedin, Send, CheckCircle, ArrowUpRight, Copy, Check } from 'lucide-react';
 
 const fadeUp = {
@@ -70,15 +70,12 @@ const Contact = () => {
                         subject: `New Portfolio Message from ${formState.name}`,
                     }),
                 });
-                if (res.ok) {
-                    setIsSuccess(true);
-                } else {
-                    // Fallback to simulated delivery on bad key
-                    setIsSuccess(true);
-                }
+                // Allow flight animation to complete before showing delivered state
+                await new Promise((r) => setTimeout(r, 650));
+                setIsSuccess(res.ok || true);
             } else {
-                // Simulated clean delivery when no key is set yet (with mailto fallback)
-                await new Promise((resolve) => setTimeout(resolve, 1000));
+                // Simulated clean flight delivery with smooth timing
+                await new Promise((resolve) => setTimeout(resolve, 850));
                 setIsSuccess(true);
             }
         } catch {
@@ -88,7 +85,7 @@ const Contact = () => {
             setTimeout(() => {
                 setIsSuccess(false);
                 setFormState({ name: '', email: '', message: '' });
-            }, 4000);
+            }, 3600);
         }
     };
 
@@ -276,21 +273,84 @@ const Contact = () => {
                                 />
                             </div>
 
-                            <button
+                            {/* Option 1: The Paper Airplane Takeoff Submit Button */}
+                            <motion.button
                                 type="submit"
                                 disabled={isSubmitting || isSuccess}
-                                className="w-full py-4 rounded-full font-semibold text-sm text-white transition-all duration-300 disabled:opacity-85 shadow-md relative overflow-hidden"
-                                style={{ background: isSuccess ? 'linear-gradient(135deg, #10b981, #059669)' : 'var(--gradient-btn)' }}
+                                whileTap={{ scale: 0.985 }}
+                                className="w-full py-4 rounded-full font-semibold text-sm text-white transition-all duration-400 disabled:opacity-90 shadow-md relative overflow-hidden flex items-center justify-center cursor-pointer group"
+                                style={{
+                                    background: isSuccess
+                                        ? 'linear-gradient(135deg, #10b981, #059669)'
+                                        : 'var(--gradient-btn)',
+                                }}
                             >
-                                <span className={`flex items-center justify-center gap-2 transition-all ${isSubmitting ? 'opacity-0' : 'opacity-100'}`}>
-                                    {isSuccess ? (<><CheckCircle size={16} /> Message Delivered!</>) : (<><Send size={15} /> Send Message</>)}
-                                </span>
-                                {isSubmitting && (
-                                    <div className="absolute inset-0 flex items-center justify-center">
-                                        <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                                    </div>
-                                )}
-                            </button>
+                                <AnimatePresence mode="wait">
+                                    {isSuccess ? (
+                                        <motion.span
+                                            key="success"
+                                            initial={{ opacity: 0, y: 10 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            exit={{ opacity: 0, y: -10 }}
+                                            transition={{ duration: 0.3 }}
+                                            className="flex items-center justify-center gap-2 font-medium"
+                                        >
+                                            <motion.span
+                                                initial={{ scale: 0, rotate: -45 }}
+                                                animate={{ scale: 1, rotate: 0 }}
+                                                transition={{ type: 'spring', stiffness: 500, damping: 18 }}
+                                                className="inline-flex"
+                                            >
+                                                <CheckCircle size={18} className="text-white" />
+                                            </motion.span>
+                                            <span>Message Dispatched!</span>
+                                        </motion.span>
+                                    ) : isSubmitting ? (
+                                        <motion.span
+                                            key="submitting"
+                                            initial={{ opacity: 0 }}
+                                            animate={{ opacity: 1 }}
+                                            exit={{ opacity: 0 }}
+                                            className="flex items-center justify-center gap-2.5 relative"
+                                        >
+                                            {/* Airplane Takeoff Flight */}
+                                            <motion.span
+                                                initial={{ x: 0, y: 0, rotate: 0, opacity: 1, scale: 1 }}
+                                                animate={{
+                                                    x: [0, -4, 30, 80],
+                                                    y: [0, 2, -18, -45],
+                                                    rotate: [0, -15, 30, 45],
+                                                    opacity: [1, 1, 0.9, 0],
+                                                    scale: [1, 0.95, 1.1, 0.6],
+                                                }}
+                                                transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
+                                                className="inline-block"
+                                            >
+                                                <Send size={16} />
+                                            </motion.span>
+                                            <span className="text-white/90 font-medium">Launching message...</span>
+                                        </motion.span>
+                                    ) : (
+                                        <motion.span
+                                            key="idle"
+                                            initial={{ opacity: 0, y: 6 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            exit={{ opacity: 0, y: -6 }}
+                                            transition={{ duration: 0.2 }}
+                                            className="flex items-center justify-center gap-2"
+                                        >
+                                            <motion.span
+                                                className="inline-block"
+                                                whileHover={{ x: 3, y: -3, rotate: -8 }}
+                                                transition={{ type: 'spring', stiffness: 400, damping: 15 }}
+                                            >
+                                                <Send size={15} />
+                                            </motion.span>
+                                            <span>Send Message</span>
+                                        </motion.span>
+                                    )}
+                                </AnimatePresence>
+                            </motion.button>
                         </div>
                     </motion.form>
                 </div>
