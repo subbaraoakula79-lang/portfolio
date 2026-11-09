@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence, useMotionValue, useTransform, useSpring } from 'framer-motion';
 import { ExternalLink, Github, X, Globe, GraduationCap, ArrowUpRight, Sparkles } from 'lucide-react';
+import { useCollaboration } from '../../context/CollaborationContext';
 
 const fadeUp = {
     hidden: { opacity: 0, y: 32 },
@@ -43,6 +44,8 @@ const TiltCard = ({ children, className = '', onClick }) => {
 
 const Projects = () => {
     const [selectedProject, setSelectedProject] = useState(null);
+    const { stageIndex, buildState } = useCollaboration();
+    const isAssembled = Boolean(buildState.isComplete || stageIndex >= 8);
 
     const projects = [
         {
@@ -116,7 +119,23 @@ const Projects = () => {
 
                 {/* Projects Presentation */}
                 <div className="space-y-12">
-                    {projects.map((project, idx) => {
+                    {!isAssembled ? (
+                        <div className="space-y-8">
+                            <div className="rounded-3xl p-10 border border-dashed border-[#EC4899]/35 bg-[#EC4899]/5 min-h-[340px] flex flex-col items-center justify-center text-center gap-3">
+                                <Globe size={24} className="text-[#EC4899] animate-pulse" />
+                                <span className="text-xs font-mono uppercase tracking-widest text-[#EC4899] font-semibold">
+                                    Graphic Designer · Placing /goc.png Preview &amp; Framing Card
+                                </span>
+                            </div>
+                            <div className="rounded-3xl p-10 border border-dashed border-[#3B82F6]/35 bg-[#3B82F6]/5 min-h-[220px] flex flex-col items-center justify-center text-center gap-3">
+                                <GraduationCap size={24} className="text-[#3B82F6] animate-pulse" />
+                                <span className="text-xs font-mono uppercase tracking-widest text-[#3B82F6] font-semibold">
+                                    UI Designer · Assembling National Admission Portal
+                                </span>
+                            </div>
+                        </div>
+                    ) : (
+                    projects.map((project, idx) => {
                         const Icon = project.icon;
                         const isFeatured = project.featured;
 
@@ -255,7 +274,8 @@ const Projects = () => {
                                 </TiltCard>
                             </motion.div>
                         );
-                    })}
+                    })
+                    )}
                 </div>
             </div>
 

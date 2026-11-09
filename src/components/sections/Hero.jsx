@@ -7,7 +7,7 @@ import {
     FigmaCollaborationOverlay,
     FigmaSelectionFrame,
 } from '../ui/FigmaCollaborationLayer';
-import { useHeroCollaboration } from '../../hooks/useHeroCollaboration';
+import { useCollaboration } from '../../context/CollaborationContext';
 import { heroStatsData } from '../../data/skillsData';
 
 function useCounter(target, isInView, duration = 1.4) {
@@ -47,7 +47,7 @@ function StatCounter({ value, suffix, label, isInView, colorsApplied }) {
 }
 
 const Hero = () => {
-    const { stageIndex, buildState, config, elementStates, assetsPrecached } = useHeroCollaboration();
+    const { stageIndex, buildState, config, elementStates, assetsPrecached } = useCollaboration();
 
     const headlineWords = ['I', 'build', 'things', 'that', 'matter.'];
     const stats = heroStatsData;
@@ -206,6 +206,13 @@ const Hero = () => {
                                         </motion.span>
                                     );
                                 })}
+                                {stageIndex === 5 && buildState.headlineWordsVisibleCount < 5 && (
+                                    <motion.span
+                                        animate={{ opacity: [1, 0, 1] }}
+                                        transition={{ repeat: Infinity, duration: 0.6 }}
+                                        className="inline-block w-1.5 h-12 md:h-16 bg-[#F59E0B] align-middle ml-1 shadow-sm rounded-sm"
+                                    />
+                                )}
                             </h1>
                         </FigmaSelectionFrame>
                     </div>
