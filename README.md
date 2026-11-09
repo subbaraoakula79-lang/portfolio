@@ -43,7 +43,7 @@
 ### 2. 🎨 Custom Brand Identity & OpenGraph Metadata
 - **Monogram Favicon ("S"):** High-DPI squircle vector icon with violet-indigo gradient, subtle drop shadow, and crisp typography.
 - **Social Preview Card (`og:image`):** 1200×630 SVG social card optimized for rich link previews across LinkedIn, WhatsApp, X (Twitter), and Discord.
-- **Dynamic Category Filters:** Instant project category filtering (`All`, `Featured Full Stack`, `Full Stack System`) with smooth layout animations.
+- **Paper Airplane Send Animation:** Tactile message dispatch micro-interaction with takeoff flight trajectory and spring-animated feedback.
 
 ### 3. ⚡ 1-Click Clipboard Utilities
 - **Instant Copy on Email & Phone:** One-click copy buttons with interactive `"Copied!"` tooltips and non-secure context fallbacks.
