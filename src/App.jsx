@@ -53,7 +53,7 @@ function App() {
   };
 
   return (
-    <div className="relative min-h-screen text-[var(--text-primary)] selection:bg-[#6366f1]/25 selection:text-[#6366f1] font-sans">
+    <div data-version="2026.11.09-v2" className="relative min-h-screen text-[var(--text-primary)] selection:bg-[#6366f1]/25 selection:text-[#6366f1] font-sans">
       <BackgroundEffect />
       <CustomCursor />
       <ScrollProgress />
