@@ -44,7 +44,6 @@ const TiltCard = ({ children, className = '', onClick }) => {
 const Projects = () => {
     const [selectedProject, setSelectedProject] = useState(null);
     const [activeImageIndex, setActiveImageIndex] = useState(0);
-    const [activeFilter, setActiveFilter] = useState('All');
 
     const projects = [
         {
@@ -129,11 +128,6 @@ const Projects = () => {
         },
     ];
 
-    const categories = ['All', 'Featured Full Stack', 'Full Stack System'];
-    const filteredProjects = activeFilter === 'All'
-        ? projects
-        : projects.filter(p => p.category === activeFilter);
-
     const openModal = (project) => {
         setSelectedProject(project);
         setActiveImageIndex(0);
@@ -150,49 +144,29 @@ const Projects = () => {
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true, margin: '-100px' }}
-                    className="mb-14 flex flex-col md:flex-row md:items-end justify-between gap-6"
+                    className="mb-16"
                 >
-                    <div>
-                        <span className="section-label">Selected Work</span>
-                        <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 tracking-tight">
-                            Crafted with <span className="gradient-text shine-text">precision</span>
-                        </h2>
-                        <p className="text-[var(--text-secondary)] max-w-xl text-lg leading-relaxed">
-                            A curation of production-ready digital products, from design system to robust deployment.
-                        </p>
-                    </div>
-
-                    {/* Filter Pills */}
-                    <div className="flex flex-wrap items-center gap-2 p-1.5 rounded-full border border-[var(--border-color)] bg-[var(--glass-bg)] self-start md:self-end">
-                        {categories.map((cat) => (
-                            <button
-                                key={cat}
-                                onClick={() => setActiveFilter(cat)}
-                                className={`px-4 py-1.5 rounded-full text-xs font-medium transition-all ${
-                                    activeFilter === cat
-                                        ? 'bg-[#6366f1] text-white shadow-sm'
-                                        : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--border-color)]/30'
-                                }`}
-                            >
-                                {cat}
-                            </button>
-                        ))}
-                    </div>
+                    <span className="section-label">Selected Work</span>
+                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 tracking-tight">
+                        Crafted with <span className="gradient-text shine-text">precision</span>
+                    </h2>
+                    <p className="text-[var(--text-secondary)] max-w-xl text-lg leading-relaxed">
+                        A curation of production-ready digital products, from design system to robust deployment.
+                    </p>
                 </motion.div>
 
                 {/* Projects Presentation */}
                 <div className="space-y-12">
-                    {filteredProjects.map((project, idx) => {
+                    {projects.map((project, idx) => {
                         const isFeatured = project.featured;
 
                         return (
                             <motion.div
                                 key={project.id}
-                                layout
                                 initial={{ opacity: 0, y: 40 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: 20 }}
-                                transition={{ delay: idx * 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true, margin: '-60px' }}
+                                transition={{ delay: idx * 0.15, duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
                             >
                                 <TiltCard
                                     onClick={() => openModal(project)}
@@ -354,15 +328,23 @@ const Projects = () => {
                                     </div>
                                 </div>
 
-                                {/* Multi-Image Demo Gallery */}
+                                {/* Multi-Image Demo Gallery (Optimized for variable aspect ratios) */}
                                 {selectedProject.gallery && selectedProject.gallery.length > 0 && (
-                                    <div className="mb-6 rounded-2xl overflow-hidden border border-[var(--border-color)] bg-[var(--bg-secondary)]">
-                                        {/* Main Preview */}
-                                        <div className="relative aspect-video overflow-hidden bg-black/40">
+                                    <div className="mb-6 rounded-2xl overflow-hidden border border-[var(--border-color)] bg-[var(--bg-secondary)] shadow-sm">
+                                        {/* Adaptive Main Preview Container */}
+                                        <div className="relative w-full h-[280px] sm:h-[360px] md:h-[420px] flex items-center justify-center overflow-hidden bg-black/70">
+                                            {/* Blurred backdrop matching active image to create seamless aesthetic letterboxing */}
+                                            <div
+                                                className="absolute inset-0 bg-cover bg-center filter blur-2xl opacity-20 scale-110 pointer-events-none transition-all duration-500"
+                                                style={{ backgroundImage: `url(${selectedProject.gallery[activeImageIndex].src})` }}
+                                            />
+
+                                            {/* Fully visible, uncropped active screenshot */}
                                             <img
+                                                key={selectedProject.gallery[activeImageIndex].src}
                                                 src={selectedProject.gallery[activeImageIndex].src}
                                                 alt={selectedProject.gallery[activeImageIndex].title}
-                                                className="w-full h-full object-cover object-top transition-all duration-300"
+                                                className="relative z-10 max-h-full max-w-full w-auto h-auto object-contain rounded-lg shadow-lg transition-all duration-300 select-none"
                                             />
 
                                             {selectedProject.gallery.length > 1 && (
@@ -374,7 +356,7 @@ const Projects = () => {
                                                                 prev === 0 ? selectedProject.gallery.length - 1 : prev - 1
                                                             );
                                                         }}
-                                                        className="absolute left-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/60 text-white hover:bg-black/85 backdrop-blur-md transition-all shadow-md"
+                                                        className="absolute left-3 top-1/2 -translate-y-1/2 z-20 p-2 sm:p-2.5 rounded-full bg-black/70 text-white hover:bg-black/90 backdrop-blur-md transition-all shadow-lg active:scale-95"
                                                         aria-label="Previous screenshot"
                                                     >
                                                         <ChevronLeft size={18} />
@@ -386,12 +368,12 @@ const Projects = () => {
                                                                 prev === selectedProject.gallery.length - 1 ? 0 : prev + 1
                                                             );
                                                         }}
-                                                        className="absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/60 text-white hover:bg-black/85 backdrop-blur-md transition-all shadow-md"
+                                                        className="absolute right-3 top-1/2 -translate-y-1/2 z-20 p-2 sm:p-2.5 rounded-full bg-black/70 text-white hover:bg-black/90 backdrop-blur-md transition-all shadow-lg active:scale-95"
                                                         aria-label="Next screenshot"
                                                     >
                                                         <ChevronRight size={18} />
                                                     </button>
-                                                    <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-black/70 backdrop-blur-md text-white text-[11px] font-mono">
+                                                    <div className="absolute top-3 right-3 z-20 px-2.5 py-1 rounded-full bg-black/75 backdrop-blur-md text-white text-[11px] font-mono shadow-sm">
                                                         {activeImageIndex + 1} / {selectedProject.gallery.length}
                                                     </div>
                                                 </>
