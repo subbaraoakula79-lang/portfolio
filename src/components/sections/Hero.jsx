@@ -266,7 +266,7 @@ const Hero = () => {
 
                                 <MagneticButton
                                     as="a"
-                                    href="/new-resume.pdf"
+                                    href="/resume.pdf"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="btn-secondary group h-12 px-5 sm:px-7 whitespace-nowrap justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6366f1] focus-visible:ring-offset-2 active:scale-95"
