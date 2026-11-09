@@ -3,6 +3,7 @@ import CustomCursor from './components/ui/CustomCursor';
 import ScrollProgress from './components/ui/ScrollProgress';
 import BackgroundEffect from './components/ui/BackgroundEffect';
 import CommandPalette from './components/ui/CommandPalette';
+import SimulatedCursors from './components/ui/SimulatedCursors';
 import Hero from './components/sections/Hero';
 import About from './components/sections/About';
 import Projects from './components/sections/Projects';
@@ -58,6 +59,7 @@ function App() {
       <CustomCursor />
       <ScrollProgress />
       <CommandPalette />
+      <SimulatedCursors />
       <Navbar theme={theme} toggleTheme={toggleTheme} />
 
       <main className="relative z-10 w-full overflow-hidden flex flex-col">
