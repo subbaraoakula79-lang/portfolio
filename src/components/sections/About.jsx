@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { BookOpen, Code2, Terminal, Database, Wrench, Cpu, ChevronRight, Sparkles } from 'lucide-react';
 import { skillCategoriesData, educationData, aboutContentData } from '../../data/skillsData';
-import { useCollaboration } from '../../context/CollaborationContext';
 
 const fadeUp = {
     hidden: { opacity: 0, y: 30 },
@@ -28,8 +27,6 @@ const skillCategories = skillCategoriesData.map(category => ({
 
 const About = () => {
     const [activeTab, setActiveTab] = useState('frontend');
-    const { stageIndex, buildState } = useCollaboration();
-    const isAssembled = Boolean(buildState.isComplete || stageIndex >= 7);
 
     const education = educationData;
 
@@ -61,18 +58,12 @@ const About = () => {
                     {/* Story & Education Column — 7 cols */}
                     <div className="lg:col-span-7 space-y-12">
                         {/* Personal Narrative */}
-                        {!isAssembled ? (
-                            <div className="rounded-3xl p-8 sm:p-10 border border-dashed border-[#6366f1]/30 bg-[#6366f1]/5 min-h-[280px] flex flex-col items-center justify-center text-center gap-3">
-                                <Sparkles size={20} className="text-[#6366f1] animate-pulse" />
-                                <span className="text-xs font-mono uppercase tracking-widest text-[#6366f1] font-semibold">
-                                    Layout Designer · Assembling Narrative Card
-                                </span>
-                            </div>
-                        ) : (
                         <motion.div
-                            initial={{ opacity: 0, scale: 0.94, y: 24 }}
-                            animate={{ opacity: 1, scale: 1, y: 0 }}
-                            transition={{ type: "spring", stiffness: 220, damping: 20 }}
+                            variants={fadeUp}
+                            custom={0.1}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true }}
                             className="apple-card rounded-3xl p-8 sm:p-10 space-y-6"
                         >
                             <div className="flex items-center gap-2.5 text-xs font-mono uppercase tracking-widest text-[#6366f1] font-semibold">
@@ -99,21 +90,14 @@ const About = () => {
                                 </div>
                             </div>
                         </motion.div>
-                        )}
 
                         {/* Education Timeline */}
-                        {!isAssembled ? (
-                            <div className="rounded-3xl p-8 sm:p-10 border border-dashed border-[#8B5CF6]/30 bg-[#8B5CF6]/5 min-h-[300px] flex flex-col items-center justify-center text-center gap-3">
-                                <BookOpen size={20} className="text-[#8B5CF6] animate-pulse" />
-                                <span className="text-xs font-mono uppercase tracking-widest text-[#8B5CF6] font-semibold">
-                                    UX Designer · Structuring Academic Timeline
-                                </span>
-                            </div>
-                        ) : (
                         <motion.div
-                            initial={{ opacity: 0, scale: 0.94, x: 24 }}
-                            animate={{ opacity: 1, scale: 1, x: 0 }}
-                            transition={{ type: "spring", stiffness: 220, damping: 20, delay: 0.1 }}
+                            variants={fadeUp}
+                            custom={0.2}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true }}
                             className="apple-card rounded-3xl p-8 sm:p-10"
                         >
                             <div className="flex items-center gap-3 mb-8">
@@ -148,23 +132,16 @@ const About = () => {
                                 ))}
                             </div>
                         </motion.div>
-                        )}
                     </div>
 
                     {/* Skills Column — 5 cols */}
                     <div className="lg:col-span-5 space-y-6">
-                        {!isAssembled ? (
-                            <div className="rounded-3xl p-8 sm:p-9 border border-dashed border-[#10B981]/30 bg-[#10B981]/5 min-h-[380px] flex flex-col items-center justify-center text-center gap-3">
-                                <Code2 size={20} className="text-[#10B981] animate-pulse" />
-                                <span className="text-xs font-mono uppercase tracking-widest text-[#10B981] font-semibold">
-                                    Frontend Designer · Placing Skill Tag Pills
-                                </span>
-                            </div>
-                        ) : (
                         <motion.div
-                            initial={{ opacity: 0, scale: 0.94, y: 30 }}
-                            animate={{ opacity: 1, scale: 1, y: 0 }}
-                            transition={{ type: "spring", stiffness: 220, damping: 20, delay: 0.15 }}
+                            variants={fadeUp}
+                            custom={0.25}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true }}
                             className="apple-card rounded-3xl p-8 sm:p-9"
                         >
                             <div className="flex items-center gap-3 mb-6">
@@ -238,7 +215,6 @@ const About = () => {
                                 </motion.div>
                             </AnimatePresence>
                         </motion.div>
-                        )}
                     </div>
                 </div>
             </div>

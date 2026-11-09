@@ -1,6 +1,4 @@
 import { motion } from 'framer-motion';
-import { useCollaboration } from '../../context/CollaborationContext';
-import { Sparkles } from 'lucide-react';
 
 const fadeUp = {
     hidden: { opacity: 0, y: 30 },
@@ -12,8 +10,6 @@ const fadeUp = {
 };
 
 const NowSection = () => {
-    const { stageIndex, buildState } = useCollaboration();
-    const isAssembled = Boolean(buildState.isComplete || stageIndex >= 9);
     const nowItems = [
         {
             title: "Data Structures & Algorithms",
@@ -48,15 +44,7 @@ const NowSection = () => {
                 </motion.div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl">
-                    {!isAssembled ? (
-                        <div className="col-span-1 md:col-span-2 rounded-3xl p-8 border border-dashed border-[#10B981]/35 bg-[#10B981]/5 min-h-[160px] flex flex-col items-center justify-center text-center gap-3">
-                            <Sparkles size={22} className="text-[#10B981] animate-pulse" />
-                            <span className="text-xs font-mono uppercase tracking-widest text-[#10B981] font-semibold">
-                                Frontend Designer · Assembling Current Initiative Cards
-                            </span>
-                        </div>
-                    ) : (
-                    nowItems.map((item, i) => (
+                    {nowItems.map((item, i) => (
                         <motion.div
                             key={i}
                             initial={{ opacity: 0, y: 25 }}
@@ -81,8 +69,7 @@ const NowSection = () => {
                                 </div>
                             </div>
                         </motion.div>
-                    ))
-                    )}
+                    ))}
                 </div>
             </div>
         </section>

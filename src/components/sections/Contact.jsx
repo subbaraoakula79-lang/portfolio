@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useCollaboration } from '../../context/CollaborationContext';
 import { motion } from 'framer-motion';
 import { Mail, Phone, Instagram, Linkedin, Send, CheckCircle, ArrowUpRight } from 'lucide-react';
 
@@ -13,8 +12,6 @@ const fadeUp = {
 };
 
 const Contact = () => {
-    const { stageIndex, buildState } = useCollaboration();
-    const isAssembled = Boolean(buildState.isComplete || stageIndex >= 10);
     const [formState, setFormState] = useState({ name: '', email: '', message: '' });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
@@ -66,18 +63,12 @@ const Contact = () => {
 
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start max-w-5xl mx-auto">
                     {/* Contact Links — 5 cols */}
-                    {!isAssembled ? (
-                        <div className="lg:col-span-5 rounded-3xl p-8 border border-dashed border-[#3B82F6]/35 bg-[#3B82F6]/5 min-h-[340px] flex flex-col items-center justify-center text-center gap-3">
-                            <Mail size={24} className="text-[#3B82F6] animate-pulse" />
-                            <span className="text-xs font-mono uppercase tracking-widest text-[#3B82F6] font-semibold">
-                                UI Designer · Assembling Channel Links
-                            </span>
-                        </div>
-                    ) : (
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.93, x: -24 }}
-                        animate={{ opacity: 1, scale: 1, x: 0 }}
-                        transition={{ type: "spring", stiffness: 220, damping: 20 }}
+                        variants={fadeUp}
+                        custom={0.1}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
                         className="lg:col-span-5 space-y-4"
                     >
                         {contactLinks.map((info, idx) => {
@@ -109,22 +100,15 @@ const Contact = () => {
                             );
                         })}
                     </motion.div>
-                    )}
 
                     {/* Contact Form — 7 cols */}
-                    {!isAssembled ? (
-                        <div className="lg:col-span-7 rounded-3xl p-10 border border-dashed border-[#10B981]/35 bg-[#10B981]/5 min-h-[380px] flex flex-col items-center justify-center text-center gap-3">
-                            <Send size={24} className="text-[#10B981] animate-pulse" />
-                            <span className="text-xs font-mono uppercase tracking-widest text-[#10B981] font-semibold">
-                                Frontend Designer · Wiring Contact Form Inputs
-                            </span>
-                        </div>
-                    ) : (
                     <motion.form
-                        initial={{ opacity: 0, scale: 0.93, x: 24 }}
-                        animate={{ opacity: 1, scale: 1, x: 0 }}
-                        transition={{ type: "spring", stiffness: 220, damping: 20, delay: 0.1 }}
                         onSubmit={handleSubmit}
+                        variants={fadeUp}
+                        custom={0.2}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
                         className="lg:col-span-7 apple-card rounded-3xl p-8 sm:p-10 shadow-lg"
                     >
                         <div className="space-y-5">
@@ -179,7 +163,6 @@ const Contact = () => {
                             </button>
                         </div>
                     </motion.form>
-                    )}
                 </div>
             </div>
         </section>

@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion';
-import { useCollaboration } from '../../context/CollaborationContext';
 import { Medal, Trophy, Award } from 'lucide-react';
 
 const fadeUp = {
@@ -12,8 +11,6 @@ const fadeUp = {
 };
 
 const Achievement = () => {
-    const { stageIndex, buildState } = useCollaboration();
-    const isAssembled = Boolean(buildState.isComplete || stageIndex >= 9);
     return (
         <section id="achievements" className="py-32 px-6 md:px-12 relative">
             <div className="section-divider mb-28" />
@@ -37,18 +34,11 @@ const Achievement = () => {
                 </motion.div>
 
                 {/* Achievement Card */}
-                {!isAssembled ? (
-                    <div className="max-w-3xl mx-auto rounded-3xl p-10 border border-dashed border-[#14B8A6]/35 bg-[#14B8A6]/5 min-h-[220px] flex flex-col items-center justify-center text-center gap-3">
-                        <Trophy size={26} className="text-[#14B8A6] animate-pulse" />
-                        <span className="text-xs font-mono uppercase tracking-widest text-[#14B8A6] font-semibold">
-                            Visual Designer · Framing Athletic Milestone Card
-                        </span>
-                    </div>
-                ) : (
                 <motion.div
-                    initial={{ opacity: 0, scale: 0.93, y: 35 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    transition={{ type: "spring", stiffness: 240, damping: 22 }}
+                    initial={{ opacity: 0, y: 40 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: '-50px' }}
+                    transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
                     className="max-w-3xl mx-auto"
                 >
                     <div className="apple-card rounded-3xl p-8 sm:p-12 relative overflow-hidden group">
@@ -101,7 +91,6 @@ const Achievement = () => {
                         </div>
                     </div>
                 </motion.div>
-                )}
             </div>
         </section>
     );
